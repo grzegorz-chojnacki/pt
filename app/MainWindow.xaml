@@ -11,12 +11,13 @@
             <ToolBar>
                 <Menu>
                     <MenuItem Header="File">
-                        <MenuItem Header="Open"/>
+                        <MenuItem Header="Open" Click="OpenDirectory"/>
                         <MenuItem Header="Exit"/>
                     </MenuItem>
                 </Menu>
             </ToolBar>
         </ToolBarTray>
-
+        <TreeView x:Name="treeView" HorizontalAlignment="Left" Margin="0,28,0,0" Width="200"/>
+        <TextBox x:Name="fileView" HorizontalAlignment="Right" Margin="0,28,0,0" Width="598"/>
     </Grid>
 </Window>
