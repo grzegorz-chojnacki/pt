@@ -7,7 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ToolBarTray VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <ToolBarTray Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
             <ToolBar>
                 <Menu>
                     <MenuItem Header="File">
@@ -17,7 +27,13 @@
                 </Menu>
             </ToolBar>
         </ToolBarTray>
-        <TreeView x:Name="treeView" HorizontalAlignment="Left" Margin="0,28,0,0" Width="200"/>
-        <TextBox x:Name="fileView" HorizontalAlignment="Right" Margin="0,28,0,0" Width="598"/>
+
+        <TreeView Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="treeView"/>
+
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock x:Name="fileView"/>
+        </ScrollViewer>
     </Grid>
 </Window>
