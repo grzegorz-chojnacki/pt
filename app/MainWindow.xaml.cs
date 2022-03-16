@@ -28,24 +28,41 @@ namespace app {
             var node = new TreeViewItem {
                 Header = System.IO.Path.GetFileName(path),
                 Tag = path,
+                ContextMenu = new System.Windows.Controls.ContextMenu()
             };
 
             var delete = new System.Windows.Controls.MenuItem() { Header = "Delete" };
-            delete.Click += (sender, e) => {
-                if (node.Parent is TreeViewItem) {
+            var create = new System.Windows.Controls.MenuItem() { Header = "Create" };
+            var open   = new System.Windows.Controls.MenuItem() { Header = "Open"   };
+
+            if (System.IO.File.Exists(path)) {
+                delete.Click += (sender, e) => {
                     ((TreeViewItem)node.Parent).Items.Remove(node);
-                } else {
-                    treeView.Items.Clear();
-                }
-
-                if (System.IO.File.Exists(path)) {
                     System.IO.File.Delete(path);
-                } else if (System.IO.Directory.Exists(path)) {
-                    System.IO.Directory.Delete(path, true); // Delete recursively
-                }
-            };
+                };
 
-            node.ContextMenu = new System.Windows.Controls.ContextMenu() { Items = { delete }};
+                if (System.IO.Path.GetExtension(path) == ".txt") {
+                    open.Click += (sender, e) => { };
+                    node.ContextMenu.Items.Add(open);
+                }
+
+                node.ContextMenu.Items.Add(delete);
+            } else if (System.IO.Directory.Exists(path)) {
+                create.Click += (sender, e) => { };
+                delete.Click += (sender, e) => {
+                    if (node.Parent is TreeViewItem item) {
+                        item.Items.Remove(node);
+                    } else {
+                        treeView.Items.Clear();
+                    }
+
+                    System.IO.Directory.Delete(path, true); // Delete recursively
+                };
+
+                node.ContextMenu.Items.Add(create);
+                node.ContextMenu.Items.Add(delete);
+            }
+
             return node;
         }
 
@@ -60,8 +77,7 @@ namespace app {
                 foreach (var filePath in System.IO.Directory.GetFiles(path)) {
                     node.Items.Add(createTreeViewItem(filePath));
                 };
-            }
-            catch (UnauthorizedAccessException) { /* Do nothing */ }
+            } catch (UnauthorizedAccessException) { /* Do nothing */ }
 
             return node;
         }
