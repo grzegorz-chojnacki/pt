@@ -14,17 +14,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace app
-{
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+namespace app {
+    public partial class MainWindow : Window {
+        public MainWindow() {
             InitializeComponent();
         }
 
-        private TreeViewItem createTreeViewItemNode(string path)
-        {
+        private TreeViewItem createTreeViewItemNode(string path) {
             return new TreeViewItem
             {
                 Header = System.IO.Path.GetFileName(path),
@@ -32,28 +28,24 @@ namespace app
             };
         }
 
-        private TreeViewItem TraverseTree(TreeViewItem node, string path)
-        {
-            try
-            {
-                foreach (var dirPath in System.IO.Directory.GetDirectories(path))
-                {
+        private TreeViewItem TraverseTree(TreeViewItem node, string path) {
+            try {
+                foreach (var dirPath in System.IO.Directory.GetDirectories(path)) {
                     var child = createTreeViewItemNode(dirPath);
                     TraverseTree(child, dirPath);
                     node.Items.Add(child);
                 };
 
-                foreach (var filePath in System.IO.Directory.GetFiles(path))
-                {
+                foreach (var filePath in System.IO.Directory.GetFiles(path)) {
                     node.Items.Add(createTreeViewItemNode(filePath));
                 };
-            } catch (UnauthorizedAccessException) { /* Do nothing */ }
+            }
+            catch (UnauthorizedAccessException) { /* Do nothing */ }
 
             return node;
         }
 
-        private void OpenDirectory(object sender, RoutedEventArgs e)
-        {
+        private void OpenDirectory(object sender, RoutedEventArgs e) {
             var dialog = new FolderBrowserDialog() { Description = "Select directory to open" };
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
