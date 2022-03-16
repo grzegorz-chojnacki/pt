@@ -42,7 +42,12 @@ namespace app {
                 };
 
                 if (System.IO.Path.GetExtension(path) == ".txt") {
-                    open.Click += (sender, e) => { };
+                    open.Click += (sender, e) => {
+                        using (var reader = System.IO.File.OpenText(path)) {
+                            fileView.Text = reader.ReadToEnd();
+                        }
+                    };
+
                     node.ContextMenu.Items.Add(open);
                 }
 
