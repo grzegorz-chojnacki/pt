@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <ToolBarTray VerticalAlignment="Top">
+            <ToolBar>
+                <Menu>
+                    <MenuItem Header="File">
+                        <MenuItem Header="Open"/>
+                        <MenuItem Header="Exit"/>
+                    </MenuItem>
+                </Menu>
+            </ToolBar>
+        </ToolBarTray>
+
     </Grid>
 </Window>
