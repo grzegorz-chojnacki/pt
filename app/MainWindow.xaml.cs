@@ -31,7 +31,7 @@ namespace app {
                 try {
                     DeleteHandler();
                 } catch (UnauthorizedAccessException) {
-                    err("Couldn't delete item, access denied");
+                    err("Couldn't delete item, access denied.");
                 } catch (IOException) {
                     err("Couldn't delete readonly item.");
                 } catch (Exception ex) {
@@ -63,7 +63,7 @@ namespace app {
             ((TreeViewItem)Parent).Items.Remove(this);
         }
         protected override void SelectedHandler() {
-            MainWindow.Instance.status.Text = File.GetAttributes(RootPath).ToString();
+            MainWindow.Instance.SetAttributes(File.GetAttributes(RootPath));
         }
 
         public FileTreeViewItem(string path) : base(path) {
@@ -85,7 +85,7 @@ namespace app {
 
     public class DirectoryTreeViewItem : FileSystemTreeViewItem {
         protected override void SelectedHandler() {
-            MainWindow.Instance.status.Text = new DirectoryInfo(RootPath).Attributes.ToString();
+            MainWindow.Instance.SetAttributes(new DirectoryInfo(RootPath).Attributes);
         }
 
         protected override void DeleteHandler() {
@@ -142,6 +142,13 @@ namespace app {
             return node;
         }
 
+        public void SetAttributes(FileAttributes attributes) {
+            MainWindow.Instance.status.Text = (((attributes & FileAttributes.ReadOnly) != 0) ? "r" : "-")
+                    + (((attributes & FileAttributes.Archive) != 0) ? "a" : "-")
+                    + (((attributes & FileAttributes.System) != 0) ? "s" : "-")
+                    + (((attributes & FileAttributes.Hidden) != 0) ? "h" : "-");
+        }
+
         private void OpenDirectory(object sender, RoutedEventArgs e) {
             var dialog = new FolderBrowserDialog() { Description = "Select directory to open" };
 
@@ -151,6 +158,10 @@ namespace app {
                 root.IsExpanded = true;
                 treeView.Items.Add(root);
             }
+        }
+
+        private void Exit(object sender, RoutedEventArgs e) {
+            System.Windows.Forms.Application.Exit();
         }
     }
 }
