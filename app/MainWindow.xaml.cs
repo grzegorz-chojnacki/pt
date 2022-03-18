@@ -1,31 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using ControlMenuItem = System.Windows.Controls.MenuItem;
 
 namespace app {
     public abstract class FileSystemTreeViewItem : TreeViewItem {
-        protected string Path;
+        protected string RootPath;
 
-        protected readonly System.Windows.Controls.MenuItem DeleteMenuItem = new System.Windows.Controls.MenuItem() { Header = "Delete" };
-        protected readonly System.Windows.Controls.MenuItem CreateMenuItem = new System.Windows.Controls.MenuItem() { Header = "Create" };
-        protected readonly System.Windows.Controls.MenuItem OpenMenuItem = new System.Windows.Controls.MenuItem() { Header = "Open" };
+        protected readonly ControlMenuItem DeleteMenuItem = new ControlMenuItem() { Header = "Delete" };
+        protected readonly ControlMenuItem CreateMenuItem = new ControlMenuItem() { Header = "Create" };
+        protected readonly ControlMenuItem OpenMenuItem = new ControlMenuItem() { Header = "Open" };
 
         protected FileSystemTreeViewItem(string path) : base() {
-            Header = System.IO.Path.GetFileName(path);
+            Header = Path.GetFileName(path);
             Tag = path;
-            Path = path;
+            RootPath = path;
             ContextMenu = new System.Windows.Controls.ContextMenu();
 
             Selected += (sender, e) => {
@@ -49,9 +41,9 @@ namespace app {
         protected abstract void SelectedHandler();
 
         protected static TreeViewItem createTreeViewItem(string path) {
-            if (System.IO.File.Exists(path)) {
+            if (File.Exists(path)) {
                 return new FileTreeViewItem(path);
-            } else if (System.IO.Directory.Exists(path)) {
+            } else if (Directory.Exists(path)) {
                 return new DirectoryTreeViewItem(path);
             } else {
                 throw new Exception(path);
@@ -61,11 +53,11 @@ namespace app {
 
     public class FileTreeViewItem : FileSystemTreeViewItem {
         protected override void DeleteHandler() {
-            System.IO.File.Delete(Path);
+            File.Delete(RootPath);
             ((TreeViewItem)Parent).Items.Remove(this);
         }
         protected override void SelectedHandler() {
-            MainWindow.Instance.status.Text = System.IO.File.GetAttributes(Path).ToString();
+            MainWindow.Instance.status.Text = File.GetAttributes(RootPath).ToString();
         }
 
         public FileTreeViewItem(string path) : base(path) {
@@ -73,9 +65,9 @@ namespace app {
                 e.Handled = true; // Bubbling event workaround
             };
 
-            if (System.IO.Path.GetExtension(path) == ".txt") {
+            if (Path.GetExtension(path) == ".txt") {
                 OpenMenuItem.Click += (sender, e) => {
-                    using (var reader = System.IO.File.OpenText(path)) {
+                    using (var reader = File.OpenText(path)) {
                         MainWindow.Instance.fileView.Text = reader.ReadToEnd();
                     }
                 };
@@ -87,11 +79,11 @@ namespace app {
 
     public class DirectoryTreeViewItem : FileSystemTreeViewItem {
         protected override void SelectedHandler() {
-            MainWindow.Instance.status.Text = new System.IO.DirectoryInfo(Path).Attributes.ToString();
+            MainWindow.Instance.status.Text = new DirectoryInfo(RootPath).Attributes.ToString();
         }
 
         protected override void DeleteHandler() {
-            System.IO.Directory.Delete(Path, true); // Delete recursively
+            Directory.Delete(RootPath, true); // Delete recursively
 
             if (Parent is TreeViewItem item) {
                 item.Items.Remove(this);
@@ -104,11 +96,11 @@ namespace app {
                 var dialog = new CreateDialog() {
                     Title = "Create file or directory",
                     Owner = MainWindow.Instance,
-                    Path = path,
+                    RootPath = path,
                 };
 
                 if (dialog.ShowDialog() == true) {
-                    Items.Insert(0, createTreeViewItem(dialog.fullPath));
+                    Items.Insert(0, createTreeViewItem(dialog.FullPath));
                 }
             };
 
@@ -130,13 +122,13 @@ namespace app {
 
         private TreeViewItem TraverseTree(TreeViewItem node, string path) {
             try {
-                foreach (var dirPath in System.IO.Directory.GetDirectories(path)) {
+                foreach (var dirPath in Directory.GetDirectories(path)) {
                     var child = new DirectoryTreeViewItem(dirPath);
                     TraverseTree(child, dirPath);
                     node.Items.Add(child);
                 };
 
-                foreach (var filePath in System.IO.Directory.GetFiles(path)) {
+                foreach (var filePath in Directory.GetFiles(path)) {
                     node.Items.Add(new FileTreeViewItem(filePath));
                 };
             } catch (UnauthorizedAccessException) { /* Do nothing */ }
