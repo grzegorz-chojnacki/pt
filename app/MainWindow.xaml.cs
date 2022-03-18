@@ -42,8 +42,13 @@ namespace app {
                 };
 
                 delete.Click += (sender, e) => {
-                    ((TreeViewItem)node.Parent).Items.Remove(node);
-                    System.IO.File.Delete(path);
+                    try {
+                        System.IO.File.Delete(path);
+                        ((TreeViewItem)node.Parent).Items.Remove(node);
+                    } catch (Exception ex) {
+                        Console.WriteLine(ex);
+                        System.Windows.MessageBox.Show("Something happened", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
                 };
 
                 if (System.IO.Path.GetExtension(path) == ".txt") {
@@ -59,7 +64,7 @@ namespace app {
                 node.ContextMenu.Items.Add(delete);
             } else if (System.IO.Directory.Exists(path)) {
                 node.Selected += (sender, e) => {
-                    status.Text = "";
+                    status.Text = new System.IO.DirectoryInfo(path).Attributes.ToString();
                     e.Handled = true; // Bubbling event workaround
                 };
 
@@ -76,13 +81,18 @@ namespace app {
                 };
 
                 delete.Click += (sender, e) => {
-                    if (node.Parent is TreeViewItem item) {
-                        item.Items.Remove(node);
-                    } else {
-                        treeView.Items.Clear();
-                    }
+                    try {
+                        System.IO.Directory.Delete(path, true); // Delete recursively
 
-                    System.IO.Directory.Delete(path, true); // Delete recursively
+                        if (node.Parent is TreeViewItem item) {
+                            item.Items.Remove(node);
+                        } else {
+                            treeView.Items.Clear();
+                        }
+                    } catch (Exception ex) {
+                        Console.WriteLine(ex);
+                        System.Windows.MessageBox.Show("Something happened", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
                 };
 
                 node.ContextMenu.Items.Add(create);
