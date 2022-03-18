@@ -28,7 +28,7 @@ namespace app {
             var node = new TreeViewItem {
                 Header = System.IO.Path.GetFileName(path),
                 Tag = path,
-                ContextMenu = new System.Windows.Controls.ContextMenu()
+                ContextMenu = new System.Windows.Controls.ContextMenu(),
             };
 
             var delete = new System.Windows.Controls.MenuItem() { Header = "Delete" };
@@ -36,6 +36,11 @@ namespace app {
             var open   = new System.Windows.Controls.MenuItem() { Header = "Open"   };
 
             if (System.IO.File.Exists(path)) {
+                node.Selected += (sender, e) => {
+                    status.Text = System.IO.File.GetAttributes(path).ToString();
+                    e.Handled = true; // Bubbling event workaround
+                };
+
                 delete.Click += (sender, e) => {
                     ((TreeViewItem)node.Parent).Items.Remove(node);
                     System.IO.File.Delete(path);
@@ -53,7 +58,13 @@ namespace app {
 
                 node.ContextMenu.Items.Add(delete);
             } else if (System.IO.Directory.Exists(path)) {
+                node.Selected += (sender, e) => {
+                    status.Text = "";
+                    e.Handled = true; // Bubbling event workaround
+                };
+
                 create.Click += (sender, e) => { };
+
                 delete.Click += (sender, e) => {
                     if (node.Parent is TreeViewItem item) {
                         item.Items.Remove(node);

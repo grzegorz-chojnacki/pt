@@ -29,6 +29,11 @@
         </ToolBarTray>
 
         <TreeView Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="treeView"/>
+        <StatusBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="status"/>
+            </StatusBarItem>
+        </StatusBar>
 
         <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
