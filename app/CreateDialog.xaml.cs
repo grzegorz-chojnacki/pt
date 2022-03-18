@@ -12,8 +12,12 @@ namespace app {
         }
 
         private void OkButton(object sender, RoutedEventArgs e) {
+            void err(string msg) => MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
             try {
                 FullPath = Path.Combine(RootPath, name.Text);
+                if (name.Text == "" || File.Exists(FullPath) || Directory.Exists(FullPath)) throw new ArgumentException();
+
                 var attributes = (attributeArchive.IsChecked == true ? FileAttributes.Archive : 0)
                     | (attributeHidden.IsChecked == true ? FileAttributes.Hidden : 0)
                     | (attributeReadOnly.IsChecked == true ? FileAttributes.ReadOnly : 0)
@@ -27,9 +31,11 @@ namespace app {
 
                 File.SetAttributes(FullPath, attributes);
                 DialogResult = true;
+            } catch (ArgumentException) {
+                err("Name is not valid.");
             } catch (Exception ex) {
                 Console.WriteLine(ex);
-                MessageBox.Show("Something happened", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                err("Something happened.");
             }
         }
     }

@@ -26,11 +26,17 @@ namespace app {
             };
 
             DeleteMenuItem.Click += (sender, e) => {
+                void err(string msg) => System.Windows.MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
                 try {
                     DeleteHandler();
+                } catch (UnauthorizedAccessException) {
+                    err("Couldn't delete item, access denied");
+                } catch (IOException) {
+                    err("Couldn't delete readonly item.");
                 } catch (Exception ex) {
                     Console.WriteLine(ex);
-                    System.Windows.MessageBox.Show("Something happened", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    err("Something happened.");
                 }
             };
 
