@@ -63,7 +63,17 @@ namespace app {
                     e.Handled = true; // Bubbling event workaround
                 };
 
-                create.Click += (sender, e) => { };
+                create.Click += (sender, e) => {
+                    var dialog = new CreateDialog() {
+                        Title = "Create file or directory",
+                        Owner = this,
+                        Path = path,
+                    };
+
+                    if (dialog.ShowDialog() == true) {
+                        node.Items.Insert(0, createTreeViewItem(dialog.fullPath));
+                    }
+                };
 
                 delete.Click += (sender, e) => {
                     if (node.Parent is TreeViewItem item) {
