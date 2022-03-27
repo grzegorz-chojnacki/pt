@@ -3,9 +3,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using app.Windows;
 
-namespace app {
+namespace app.View {
     public partial class MainWindow : Window {
         public static MainWindow Instance;
         public MainWindow() {

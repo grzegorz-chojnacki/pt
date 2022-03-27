@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 using ControlMenuItem = System.Windows.Controls.MenuItem;
 
-namespace app.Windows {
+namespace app.View {
     public abstract class FileSystemTreeViewItem : TreeViewItem {
         protected string RootPath;
 

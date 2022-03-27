@@ -2,7 +2,7 @@
 using System.Windows;
 using System.IO;
 
-namespace app {
+namespace app.View {
     public partial class CreateDialog : Window {
         public string RootPath;
         public string FullPath;
