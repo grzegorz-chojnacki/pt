@@ -1,4 +1,5 @@
-﻿using System;
+﻿using app.ViewModel;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,14 +8,14 @@ using System.Windows.Forms;
 namespace app.View {
     public partial class MainWindow : Window {
         public static MainWindow Instance;
+
         public MainWindow() {
             InitializeComponent();
             Instance = this;
 
-            var path = "C:\\Users\\User\\Desktop";
-            var root = TraverseTree(new DirectoryTreeViewItem(path), path);
-            root.IsExpanded = true;
-            treeView.Items.Add(root);
+            var fileExplorer = new FileExplorer();
+            fileExplorer.OpenRoot("C:\\Users\\User\\Desktop");
+            DataContext = fileExplorer;
         }
 
         private TreeViewItem TraverseTree(TreeViewItem node, string path) {
@@ -44,10 +45,9 @@ namespace app.View {
             var dialog = new FolderBrowserDialog() { Description = "Select directory to open" };
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                treeView.Items.Clear();
-                var root = TraverseTree(new DirectoryTreeViewItem(dialog.SelectedPath), dialog.SelectedPath);
-                root.IsExpanded = true;
-                treeView.Items.Add(root);
+                var fileExplorer = new FileExplorer();
+                fileExplorer.OpenRoot(dialog.SelectedPath);
+                DataContext = fileExplorer;
             }
         }
 
