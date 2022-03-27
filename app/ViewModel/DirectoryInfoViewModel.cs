@@ -9,12 +9,14 @@ namespace app.ViewModel {
 
         public bool Open(string path) {
             try {
-                foreach (var dirName in Directory.GetDirectories(path)) {
-                    Items.Add(new DirectoryInfoViewModel { Model = new DirectoryInfo(dirName) });
+                foreach (var dirPath in Directory.GetDirectories(path)) {
+                    var dir = new DirectoryInfoViewModel { Model = new DirectoryInfo(dirPath) };
+                    dir.Open(dirPath);
+                    Items.Add(dir);
                 }
 
-                foreach (var fileName in Directory.GetFiles(path)) {
-                    Items.Add(new FileInfoViewModel { Model = new FileInfo(fileName) });
+                foreach (var filePath in Directory.GetFiles(path)) {
+                    Items.Add(new FileInfoViewModel { Model = new FileInfo(filePath) });
                 }
 
                 return true;

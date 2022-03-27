@@ -14,7 +14,7 @@ namespace app.View {
             Instance = this;
 
             var fileExplorer = new FileExplorer();
-            fileExplorer.OpenRoot("C:\\Users\\User\\Desktop");
+            fileExplorer.OpenRoot("C:\\Users\\User\\Downloads");
             DataContext = fileExplorer;
         }
 
