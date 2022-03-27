@@ -14,6 +14,17 @@ namespace app.ViewModel {
             }
         }
 
+        private string name;
+        public string Name {
+            get { return name; }
+            set {
+                if (name != value) {
+                    name = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         private FileSystemInfo model;
         public FileSystemInfo Model {
             get { return model; }
@@ -21,6 +32,7 @@ namespace app.ViewModel {
                 if (model != value) {
                     model = value;
                     LastWriteTime = value.LastWriteTime;
+                    Name = value.Name;
                     NotifyPropertyChanged();
                 }
             }
