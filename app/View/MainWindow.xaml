@@ -12,7 +12,10 @@
         <HierarchicalDataTemplate
             DataType="{ x:Type local:DirectoryInfoViewModel}"
             ItemsSource="{ Binding Items }">
-            <TextBlock Text="{ Binding Name }" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal">
+                <Image Width="16" Source="/View/folder.png"/>
+                <TextBlock Text="{ Binding Name }" FontWeight="Bold"/>
+            </StackPanel>
         </HierarchicalDataTemplate>
 
         <DataTemplate DataType="{ x:Type local:FileInfoViewModel }">
