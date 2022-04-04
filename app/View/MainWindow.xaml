@@ -21,6 +21,19 @@
         <DataTemplate DataType="{ x:Type local:FileInfoViewModel }">
             <TextBlock Text="{ Binding Name }"/>
         </DataTemplate>
+
+        <local:LangBoolConverter x:Key="LangBoolConverter"/>
+
+        <Style x:Key="LangButtonStyle" TargetType="ToggleButton">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="BorderBrush" Value="Blue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -35,16 +48,29 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <ToolBarTray Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
-            <ToolBar>
-                <Menu>
+        <ToolBar Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
+            <DockPanel Width="{ Binding Path=ActualWidth, RelativeSource={ RelativeSource AncestorType={ x:Type ToolBarPanel }}}"
+                       HorizontalAlignment="Stretch">
+                <Menu HorizontalAlignment="Left">
                     <MenuItem Header="File">
                         <MenuItem Header="Open" Click="OpenDirectory"/>
                         <MenuItem Header="Exit" Click="Exit"/>
                     </MenuItem>
                 </Menu>
-            </ToolBar>
-        </ToolBarTray>
+                <ToolBarPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <ToggleButton x:Name="polishLanguageButton"
+                                    Style="{ StaticResource LangButtonStyle }"
+                                    IsChecked="{ Binding Lang, Converter = { StaticResource LangBoolConverter }, ConverterParameter = pl }">
+                        <Image Source="/View/pl.png" Width="16"/>
+                    </ToggleButton>
+                    <ToggleButton x:Name="englishLanguageButton"
+                                    Style="{ StaticResource LangButtonStyle }"
+                                    IsChecked="{ Binding Lang, Converter = { StaticResource LangBoolConverter }, ConverterParameter = eng }">
+                        <Image Source="/View/eng.png" Width="16"/>
+                    </ToggleButton>
+                </ToolBarPanel>
+            </DockPanel>
+        </ToolBar>
 
         <TreeView
             Grid.Row="1"

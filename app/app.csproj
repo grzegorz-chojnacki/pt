@@ -60,6 +60,7 @@
     <Compile Include="ViewModel\FileExplorer.cs" />
     <Compile Include="ViewModel\FileInfoViewModel.cs" />
     <Compile Include="ViewModel\FileSystemInfoViewModel.cs" />
+    <Compile Include="ViewModel\LangBoolConverter.cs" />
     <Compile Include="View\FileSystemTreeViewItem.cs" />
     <Compile Include="View\CreateDialog.xaml.cs">
       <DependentUpon>CreateDialog.xaml</DependentUpon>
@@ -113,6 +114,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\pl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\eng.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
