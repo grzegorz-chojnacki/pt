@@ -5,11 +5,12 @@ namespace app.ViewModel {
         public string Lang {
             get { return CultureInfo.CurrentUICulture.TwoLetterISOLanguageName; }
             set {
-                if (value != null)
+                if (value != null) {
                     if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != value) {
                         CultureInfo.CurrentUICulture = new CultureInfo(value);
                         NotifyPropertyChanged();
                     }
+                }
             }
         }
 

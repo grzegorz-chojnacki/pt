@@ -1,5 +1,7 @@
 ﻿using app.ViewModel;
 using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +16,7 @@ namespace app.View {
             Instance = this;
 
             var fileExplorer = new FileExplorer();
+            fileExplorer.PropertyChanged += fileExplorerPropertyChanged;
             fileExplorer.OpenRoot("C:\\Users\\User\\Downloads");
             DataContext = fileExplorer;
         }
@@ -49,6 +52,11 @@ namespace app.View {
                 fileExplorer.OpenRoot(dialog.SelectedPath);
                 DataContext = fileExplorer;
             }
+        }
+
+        public void fileExplorerPropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if (e.PropertyName == nameof(FileExplorer.Lang))
+                CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
         }
 
         private void Exit(object sender, RoutedEventArgs e) {

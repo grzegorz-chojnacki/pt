@@ -52,7 +52,7 @@
             <DockPanel Width="{ Binding Path=ActualWidth, RelativeSource={ RelativeSource AncestorType={ x:Type ToolBarPanel }}}"
                        HorizontalAlignment="Stretch">
                 <Menu HorizontalAlignment="Left">
-                    <MenuItem Header="File">
+                    <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=File }">
                         <MenuItem Header="Open" Click="OpenDirectory"/>
                         <MenuItem Header="Exit" Click="Exit"/>
                     </MenuItem>
