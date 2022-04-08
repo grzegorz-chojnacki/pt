@@ -65,7 +65,7 @@
                     </ToggleButton>
                     <ToggleButton x:Name="englishLanguageButton"
                                     Style="{ StaticResource LangButtonStyle }"
-                                    IsChecked="{ Binding Lang, Converter = { StaticResource LangBoolConverter }, ConverterParameter = eng }">
+                                    IsChecked="{ Binding Lang, Converter = { StaticResource LangBoolConverter }, ConverterParameter = en }">
                         <Image Source="/View/eng.png" Width="16"/>
                     </ToggleButton>
                 </ToolBarPanel>
