@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
+using System.Windows.Input;
 
 namespace app.ViewModel {
-    public class FileSystemInfoViewModel : ViewModelBase {
+    public abstract class FileSystemInfoViewModel : ViewModelBase {
         private DateTime lastWriteTime;
         public DateTime LastWriteTime {
             get { return lastWriteTime; }
@@ -37,5 +39,27 @@ namespace app.ViewModel {
                 }
             }
         }
+
+        private ICommand delete;
+        public ICommand Delete {
+            get {
+                return delete ?? (delete = new RelayCommand(param => {
+                    void err(string msg) => System.Windows.MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    try {
+                        DeleteHandler();
+                    } catch (UnauthorizedAccessException) {
+                        err("Couldn't delete item, access denied.");
+                    } catch (IOException) {
+                        err("Couldn't delete readonly item.");
+                    } catch (Exception ex) {
+                        Console.WriteLine(ex);
+                        err("Something happened.");
+                    }
+                }));
+            }
+        }
+
+        protected abstract void DeleteHandler();
     }
 }

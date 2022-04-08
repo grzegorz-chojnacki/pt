@@ -1,4 +1,5 @@
-﻿using System;
+﻿using app.View;
+using System.IO;
 using System.Windows.Input;
 
 namespace app.ViewModel {
@@ -6,15 +7,18 @@ namespace app.ViewModel {
         private ICommand open;
         public ICommand Open {
             get {
-                return open ?? (open = new RelayCommand(param => Console.WriteLine("Open")));
+                return open ?? (open = new RelayCommand(param => {
+                    if (Model.Extension == ".txt") {
+                        using (var reader = File.OpenText(Model.FullName)) {
+                            MainWindow.Instance.fileView.Text = reader.ReadToEnd();
+                        }
+                    };
+                }));
             }
         }
-        
-        private ICommand delete;
-        public ICommand Delete {
-            get {
-                return delete ?? (delete = new RelayCommand(param => Console.WriteLine("Delete")));
-            }
+
+        protected override void DeleteHandler() {
+            Model.Delete();
         }
     }
 }

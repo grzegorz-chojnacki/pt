@@ -29,7 +29,7 @@ namespace app.ViewModel {
                 Watcher.Deleted += OnFileSystemChange;
                 Watcher.Changed += OnFileSystemChange;
                 Watcher.Renamed += OnFileSystemRename;
-                Watcher.Error   += OnFileSystemError;
+                Watcher.Error += OnFileSystemError;
 
                 return true;
             } catch (Exception) {
@@ -46,7 +46,7 @@ namespace app.ViewModel {
             switch (e.ChangeType) {
                 case WatcherChangeTypes.Created: Create(); break;
                 case WatcherChangeTypes.Deleted: Delete(); break;
-                case WatcherChangeTypes.Changed: Delete(); Create(); break;
+                case WatcherChangeTypes.Changed: break;
             }
         }
 
@@ -74,12 +74,8 @@ namespace app.ViewModel {
                 return create ?? (create = new RelayCommand(param => Console.WriteLine("Create")));
             }
         }
-
-        private ICommand delete;
-        public ICommand Delete {
-            get {
-                return delete ?? (delete = new RelayCommand(param => Console.WriteLine("Delete")));
-            }
+        protected override void DeleteHandler() {
+            ((DirectoryInfo)Model).Delete(true);
         }
     }
 }
