@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel;
+using System.Globalization;
 
 namespace app.ViewModel {
     public class FileExplorer : ViewModelBase {
@@ -16,13 +17,16 @@ namespace app.ViewModel {
 
         public DirectoryInfoViewModel Root { get; set; }
 
-        public FileExplorer() {
+        public FileExplorer(string path) {
+            Root = new DirectoryInfoViewModel();
+            PropertyChanged += fileExplorerPropertyChanged;
+            Root.Open(path);
             NotifyPropertyChanged(nameof(Lang));
         }
 
-        public void OpenRoot(string path) {
-            Root = new DirectoryInfoViewModel();
-            Root.Open(path);
+        public void fileExplorerPropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if (e.PropertyName == nameof(Lang))
+                CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
         }
     }
 }

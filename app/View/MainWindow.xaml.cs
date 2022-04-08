@@ -1,7 +1,5 @@
 ﻿using app.ViewModel;
 using System;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,11 +12,7 @@ namespace app.View {
         public MainWindow() {
             InitializeComponent();
             Instance = this;
-
-            var fileExplorer = new FileExplorer();
-            fileExplorer.PropertyChanged += fileExplorerPropertyChanged;
-            fileExplorer.OpenRoot("C:\\Users\\User\\Downloads");
-            DataContext = fileExplorer;
+            DataContext = new FileExplorer("C:\\Users\\User\\Downloads");
         }
 
         private TreeViewItem TraverseTree(TreeViewItem node, string path) {
@@ -48,15 +42,8 @@ namespace app.View {
             var dialog = new FolderBrowserDialog() { Description = "Select directory to open" };
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                var fileExplorer = new FileExplorer();
-                fileExplorer.OpenRoot(dialog.SelectedPath);
-                DataContext = fileExplorer;
+                DataContext = new FileExplorer(dialog.SelectedPath);
             }
-        }
-
-        public void fileExplorerPropertyChanged(object sender, PropertyChangedEventArgs e) {
-            if (e.PropertyName == nameof(FileExplorer.Lang))
-                CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
         }
 
         private void Exit(object sender, RoutedEventArgs e) {
