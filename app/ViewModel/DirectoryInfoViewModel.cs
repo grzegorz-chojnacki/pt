@@ -1,4 +1,5 @@
-﻿using System;
+using app.View;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -71,7 +72,13 @@ namespace app.ViewModel {
         private ICommand create;
         public ICommand Create {
             get {
-                return create ?? (create = new RelayCommand(param => Console.WriteLine("Create")));
+                return create ?? (create = new RelayCommand(param => {
+                    new CreateDialog() {
+                        Title = "Create file or directory",
+                        Owner = MainWindow.Instance,
+                        RootPath = Model.FullName,
+                    }.ShowDialog();
+                }));
             }
         }
         protected override void DeleteHandler() {
