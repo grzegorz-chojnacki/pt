@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 
 namespace app.ViewModel {
     public class DirectoryInfoViewModel : FileSystemInfoViewModel {
@@ -22,14 +23,12 @@ namespace app.ViewModel {
                     Items.Add(new FileInfoViewModel { Model = new FileInfo(filePath) });
                 }
 
-                Watcher = new FileSystemWatcher(path) {
-                    EnableRaisingEvents = true
-                };
+                Watcher = new FileSystemWatcher(path) { EnableRaisingEvents = true };
 
-                Watcher.Renamed += OnFileSystemRename;
                 Watcher.Created += OnFileSystemChange;
                 Watcher.Deleted += OnFileSystemChange;
                 Watcher.Changed += OnFileSystemChange;
+                Watcher.Renamed += OnFileSystemRename;
                 Watcher.Error   += OnFileSystemError;
 
                 return true;
@@ -68,5 +67,19 @@ namespace app.ViewModel {
         }
 
         private void OnFileSystemError(object sender, ErrorEventArgs e) { }
+
+        private ICommand create;
+        public ICommand Create {
+            get {
+                return create ?? (create = new RelayCommand(param => Console.WriteLine("Create")));
+            }
+        }
+
+        private ICommand delete;
+        public ICommand Delete {
+            get {
+                return delete ?? (delete = new RelayCommand(param => Console.WriteLine("Delete")));
+            }
+        }
     }
 }

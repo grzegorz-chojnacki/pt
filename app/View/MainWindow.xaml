@@ -15,11 +15,25 @@
             <StackPanel Orientation="Horizontal">
                 <Image Width="16" Source="/View/folder.png"/>
                 <TextBlock Text="{ Binding Name }" FontWeight="Bold"/>
+                <StackPanel.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Create" Command="{ Binding Create }"/>
+                        <MenuItem Header="Delete" Command="{ Binding Delete }"/>
+                    </ContextMenu>
+                </StackPanel.ContextMenu>
             </StackPanel>
         </HierarchicalDataTemplate>
 
         <DataTemplate DataType="{ x:Type local:FileInfoViewModel }">
-            <TextBlock Text="{ Binding Name }"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{ Binding Name }"/>
+                <StackPanel.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Open" Command="{ Binding Open }"/>
+                        <MenuItem Header="Delete" Command="{ Binding Delete }"/>
+                    </ContextMenu>
+                </StackPanel.ContextMenu>
+            </StackPanel>
         </DataTemplate>
 
         <local:LangBoolConverter x:Key="LangBoolConverter"/>
