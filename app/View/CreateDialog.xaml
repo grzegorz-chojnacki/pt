@@ -4,14 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        Title="{ Binding Source={ StaticResource Strings }, Path=CreateWindow }"
         WindowStartupLocation="CenterOwner"
-        Title="Create" Height="300" Width="310">
+        Height="300" Width="310">
     <Grid>
 
     <StackPanel Margin="5,5,5,5" VerticalAlignment="Top">
         <GroupBox>
             <GroupBox.Header>
-                <Label>Name</Label>
+                <Label Content="{ Binding Source={ StaticResource Strings }, Path=CreateName }"/>
             </GroupBox.Header>
             <StackPanel>
                 <TextBox x:Name="name"></TextBox>
@@ -19,22 +20,28 @@
         </GroupBox>
         <GroupBox>
             <GroupBox.Header>
-                <Label>Type</Label>
+                <Label Content="{ Binding Source={ StaticResource Strings }, Path=CreateType }"/>
             </GroupBox.Header>
             <StackPanel>
-                <RadioButton x:Name="typeFile" IsChecked="True">File</RadioButton>
-                <RadioButton x:Name="typeDirectory">Directory</RadioButton>
+                <RadioButton x:Name="typeFile" IsChecked="True"
+                    Content="{ Binding Source={ StaticResource Strings }, Path=CreateFileOption }"/>
+                <RadioButton x:Name="typeDirectory"
+                    Content="{ Binding Source={ StaticResource Strings }, Path=CreateDirectoryOption }"/>
             </StackPanel>
         </GroupBox>
             <GroupBox>
                 <GroupBox.Header>
-                    <Label>File attributes</Label>
+                    <Label Content="{ Binding Source={ StaticResource Strings }, Path=AttributesHeader }"/>
                 </GroupBox.Header>
                 <StackPanel>
-                    <CheckBox x:Name="attributeReadOnly">ReadOnly</CheckBox>
-                    <CheckBox x:Name="attributeArchive">Archive</CheckBox>
-                    <CheckBox x:Name="attributeHidden">Hidden</CheckBox>
-                    <CheckBox x:Name="attributeSystem">System</CheckBox>
+                    <CheckBox x:Name="attributeReadOnly"
+                        Content="{ Binding Source={ StaticResource Strings }, Path=AttrReadOnly }"/>
+                    <CheckBox x:Name="attributeArchive"
+                        Content="{ Binding Source={ StaticResource Strings }, Path=AttrArchive }"/>
+                    <CheckBox x:Name="attributeHidden"
+                        Content="{ Binding Source={ StaticResource Strings }, Path=AttrHidden }"/>
+                    <CheckBox x:Name="attributeSystem"
+                        Content="{ Binding Source={ StaticResource Strings }, Path=AttrSystem }"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
@@ -46,7 +53,8 @@
                 </Style>
             </StackPanel.Resources>
             <Button IsDefault="True" Click="OkButton">Ok</Button>
-            <Button IsCancel="True">Cancel</Button>
+            <Button IsCancel="True"
+                Content="{ Binding Source={ StaticResource Strings }, Path=Cancel }"/>
         </StackPanel>
     </Grid>
 </Window>

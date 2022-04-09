@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:app.ViewModel"
     mc:Ignorable="d"
-    Title="MainWindow"
+    Title="{ Binding Source={ StaticResource Strings }, Path=MainWindow }"
     Height="450"
     Width="800">
     <Window.Resources>
@@ -17,8 +17,8 @@
                 <TextBlock Text="{ Binding Name }" FontWeight="Bold"/>
                 <StackPanel.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Create" Command="{ Binding Create }"/>
-                        <MenuItem Header="Delete" Command="{ Binding Delete }"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=CreateMenu }" Command="{ Binding Create }"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }" Command="{ Binding Delete }"/>
                     </ContextMenu>
                 </StackPanel.ContextMenu>
             </StackPanel>
@@ -29,8 +29,8 @@
                 <TextBlock Text="{ Binding Name }"/>
                 <StackPanel.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Open" Command="{ Binding Open }"/>
-                        <MenuItem Header="Delete" Command="{ Binding Delete }"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu}" Command="{ Binding Open }"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }" Command="{ Binding Delete }"/>
                     </ContextMenu>
                 </StackPanel.ContextMenu>
             </StackPanel>

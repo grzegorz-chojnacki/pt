@@ -1,4 +1,5 @@
-﻿using app.ViewModel;
+﻿using app.Resources;
+using app.ViewModel;
 using System;
 using System.IO;
 using System.Windows;
@@ -39,7 +40,9 @@ namespace app.View {
         }
 
         private void OpenDirectory(object sender, RoutedEventArgs e) {
-            var dialog = new FolderBrowserDialog() { Description = "Select directory to open" };
+            var dialog = new FolderBrowserDialog() {
+                Description = Strings.OpenDirectoryPrompt
+            };
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 DataContext = new FileExplorer(dialog.SelectedPath);

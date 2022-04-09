@@ -117,10 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CreateFileOrDirectoryPrompt" xml:space="preserve">
+    <value>Create file or directory</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="GeneralIOError" xml:space="preserve">
+    <value>Couldn't delete readonly item.</value>
+  </data>
+  <data name="InvalidNameIOError" xml:space="preserve">
+    <value>Name is not valid.</value>
+  </data>
   <data name="OpenDirectory" xml:space="preserve">
     <value>Open Directory</value>
+  </data>
+  <data name="OpenDirectoryPrompt" xml:space="preserve">
+    <value>Select directory to open.</value>
+  </data>
+  <data name="OtherIOError" xml:space="preserve">
+    <value>Something happend.</value>
+  </data>
+  <data name="UnauthorizedIOError" xml:space="preserve">
+    <value>Couldn't delete item, access denied.</value>
+  </data>
+  <data name="CreateName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="CreateType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="CreateFileOption" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="CreateDirectoryOption" xml:space="preserve">
+    <value>Directory</value>
+  </data>
+  <data name="AttributesHeader" xml:space="preserve">
+    <value>Attributes</value>
+  </data>
+  <data name="AttrReadOnly" xml:space="preserve">
+    <value>ReadOnly</value>
+  </data>
+  <data name="AttrArchive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="AttrHidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="AttrSystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CreateWindow" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="MainWindow" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="CreateMenu" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="DeleteMenu" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="OpenMenu" xml:space="preserve">
+    <value>Open</value>
   </data>
 </root>

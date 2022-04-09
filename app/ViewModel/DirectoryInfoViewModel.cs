@@ -1,8 +1,10 @@
+using app.Resources;
 using app.View;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Windows.Input;
 
 namespace app.ViewModel {
@@ -74,7 +76,7 @@ namespace app.ViewModel {
             get {
                 return create ?? (create = new RelayCommand(param => {
                     new CreateDialog() {
-                        Title = "Create file or directory",
+                        Title = Strings.CreateFileOrDirectoryPrompt,
                         Owner = MainWindow.Instance,
                         RootPath = Model.FullName,
                     }.ShowDialog();

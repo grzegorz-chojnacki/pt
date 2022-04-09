@@ -123,4 +123,70 @@
   <data name="OpenDirectory" xml:space="preserve">
     <value>Otwórz katalog</value>
   </data>
+  <data name="CreateFileOrDirectoryPrompt" xml:space="preserve">
+    <value>Utwórz plik lub katalog</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="GeneralIOError" xml:space="preserve">
+    <value>Nie można usunąć elementu tylko do odczytu.</value>
+  </data>
+  <data name="InvalidNameIOError" xml:space="preserve">
+    <value>Nazwa nie jest prawidłowa.</value>
+  </data>
+  <data name="OpenDirectoryPrompt" xml:space="preserve">
+    <value>Wybierz katalog do otwarcia</value>
+  </data>
+  <data name="OtherIOError" xml:space="preserve">
+    <value>Wystąpił niezidentyfikowany błąd.</value>
+  </data>
+  <data name="UnauthorizedIOError" xml:space="preserve">
+    <value>Nie można usunąć elementu, nieprawidłowe ustawienia dostępu.</value>
+  </data>
+  <data name="CreateName" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="CreateType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="CreateFileOption" xml:space="preserve">
+    <value>Plik</value>
+  </data>
+  <data name="CreateDirectoryOption" xml:space="preserve">
+    <value>Katalog</value>
+  </data>
+  <data name="AttributesHeader" xml:space="preserve">
+    <value>Atrybuty</value>
+  </data>
+  <data name="AttrReadOnly" xml:space="preserve">
+    <value>Tylko do odczytu</value>
+  </data>
+  <data name="AttrArchive" xml:space="preserve">
+    <value>Archiwizowany</value>
+  </data>
+  <data name="AttrHidden" xml:space="preserve">
+    <value>Ukryty</value>
+  </data>
+  <data name="AttrSystem" xml:space="preserve">
+    <value>Systemowy</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="CreateWindow" xml:space="preserve">
+    <value>Utwórz</value>
+  </data>
+  <data name="MainWindow" xml:space="preserve">
+    <value>Okno</value>
+  </data>
+  <data name="CreateMenu" xml:space="preserve">
+    <value>Utwórz</value>
+  </data>
+  <data name="DeleteMenu" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="OpenMenu" xml:space="preserve">
+    <value>Otwórz</value>
+  </data>
 </root>

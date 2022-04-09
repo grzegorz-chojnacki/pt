@@ -61,6 +61,141 @@ namespace app.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Archive.
+        /// </summary>
+        public static string AttrArchive {
+            get {
+                return ResourceManager.GetString("AttrArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden.
+        /// </summary>
+        public static string AttrHidden {
+            get {
+                return ResourceManager.GetString("AttrHidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attributes.
+        /// </summary>
+        public static string AttributesHeader {
+            get {
+                return ResourceManager.GetString("AttributesHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ReadOnly.
+        /// </summary>
+        public static string AttrReadOnly {
+            get {
+                return ResourceManager.GetString("AttrReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        public static string AttrSystem {
+            get {
+                return ResourceManager.GetString("AttrSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory.
+        /// </summary>
+        public static string CreateDirectoryOption {
+            get {
+                return ResourceManager.GetString("CreateDirectoryOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string CreateFileOption {
+            get {
+                return ResourceManager.GetString("CreateFileOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create file or directory.
+        /// </summary>
+        public static string CreateFileOrDirectoryPrompt {
+            get {
+                return ResourceManager.GetString("CreateFileOrDirectoryPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string CreateMenu {
+            get {
+                return ResourceManager.GetString("CreateMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string CreateName {
+            get {
+                return ResourceManager.GetString("CreateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string CreateType {
+            get {
+                return ResourceManager.GetString("CreateType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string CreateWindow {
+            get {
+                return ResourceManager.GetString("CreateWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DeleteMenu {
+            get {
+                return ResourceManager.GetString("DeleteMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         public static string File {
@@ -70,11 +205,74 @@ namespace app.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t delete readonly item..
+        /// </summary>
+        public static string GeneralIOError {
+            get {
+                return ResourceManager.GetString("GeneralIOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is not valid..
+        /// </summary>
+        public static string InvalidNameIOError {
+            get {
+                return ResourceManager.GetString("InvalidNameIOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main.
+        /// </summary>
+        public static string MainWindow {
+            get {
+                return ResourceManager.GetString("MainWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Directory.
         /// </summary>
         public static string OpenDirectory {
             get {
                 return ResourceManager.GetString("OpenDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select directory to open..
+        /// </summary>
+        public static string OpenDirectoryPrompt {
+            get {
+                return ResourceManager.GetString("OpenDirectoryPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string OpenMenu {
+            get {
+                return ResourceManager.GetString("OpenMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something happend..
+        /// </summary>
+        public static string OtherIOError {
+            get {
+                return ResourceManager.GetString("OtherIOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t delete item, access denied..
+        /// </summary>
+        public static string UnauthorizedIOError {
+            get {
+                return ResourceManager.GetString("UnauthorizedIOError", resourceCulture);
             }
         }
     }

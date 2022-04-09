@@ -1,4 +1,5 @@
-﻿using System;
+﻿using app.Resources;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -44,17 +45,18 @@ namespace app.ViewModel {
         public ICommand Delete {
             get {
                 return delete ?? (delete = new RelayCommand(param => {
-                    void err(string msg) => System.Windows.MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    void err(string msg) => System.Windows.MessageBox.Show(msg,
+                        Strings.Error,
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
 
                     try {
                         DeleteHandler();
                     } catch (UnauthorizedAccessException) {
-                        err("Couldn't delete item, access denied.");
+                        err(Strings.UnauthorizedIOError);
                     } catch (IOException) {
-                        err("Couldn't delete readonly item.");
-                    } catch (Exception ex) {
-                        Console.WriteLine(ex);
-                        err("Something happened.");
+                        err(Strings.GeneralIOError);
+                    } catch (Exception) {
+                        err(Strings.OtherIOError);
                     }
                 }));
             }

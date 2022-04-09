@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.IO;
+using app.Resources;
 
 namespace app.View {
     public partial class CreateDialog : Window {
@@ -12,7 +13,9 @@ namespace app.View {
         }
 
         private void OkButton(object sender, RoutedEventArgs e) {
-            void err(string msg) => MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            void err(string msg) => MessageBox.Show(msg,
+                Strings.Error,
+                MessageBoxButton.OK, MessageBoxImage.Warning);
 
             try {
                 FullPath = Path.Combine(RootPath, name.Text);
@@ -32,10 +35,10 @@ namespace app.View {
                 File.SetAttributes(FullPath, attributes);
                 DialogResult = true;
             } catch (ArgumentException) {
-                err("Name is not valid.");
+                err(Strings.InvalidNameIOError);
             } catch (Exception ex) {
                 Console.WriteLine(ex);
-                err("Something happened.");
+                err(Strings.OtherIOError);
             }
         }
     }
