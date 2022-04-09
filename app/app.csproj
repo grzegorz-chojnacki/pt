@@ -123,13 +123,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="View\folder.png" />
+    <Resource Include="Resources\folder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\pl.png" />
+    <Resource Include="Resources\pl.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\eng.png" />
+    <Resource Include="Resources\eng.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
