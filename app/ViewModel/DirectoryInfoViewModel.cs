@@ -1,4 +1,4 @@
-using app.Resources;
+﻿using app.Resources;
 using app.View;
 using System;
 using System.Collections.ObjectModel;
@@ -44,7 +44,7 @@ namespace app.ViewModel {
             void ThreadAction(Action f) => App.Current.Dispatcher.Invoke(delegate { f(); });
 
             void Create() => ThreadAction(() => Items.Add(NewFileSystemEntity(e.FullPath)));
-            void Delete() => ThreadAction(() => Items.Remove(Items.Single(x => x.Name == e.Name)));
+            void Delete() => ThreadAction(() => Items.Remove(Items.Single(x => x.Model.Name == e.Name)));
 
             switch (e.ChangeType) {
                 case WatcherChangeTypes.Created: Create(); break;
@@ -54,7 +54,7 @@ namespace app.ViewModel {
         }
 
         private void OnFileSystemRename(object sender, RenamedEventArgs e) {
-           Items.Single(x => x.Name == e.OldName).Name = e.Name;
+            Items.Single(x => x.Model.Name == e.OldName).Model = NewFileSystemEntity(e.FullPath).Model;
         }
 
         private FileSystemInfoViewModel NewFileSystemEntity(string path) {
