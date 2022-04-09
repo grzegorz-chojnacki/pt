@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using app.Resources;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace app.ViewModel {

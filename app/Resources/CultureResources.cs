@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 
-namespace app {
+namespace app.Resources {
     public class CultureResources {
         public Strings GetStringsInstance() {
             return new Strings();
