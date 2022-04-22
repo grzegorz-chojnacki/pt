@@ -67,6 +67,7 @@
     <Compile Include="ViewModel\FileInfoViewModel.cs" />
     <Compile Include="ViewModel\FileSystemInfoViewModel.cs" />
     <Compile Include="ViewModel\LangBoolConverter.cs" />
+    <Compile Include="ViewModel\SortBoolConverter.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="View\FileSystemTreeViewItem.cs" />
     <Compile Include="View\CreateDialog.xaml.cs">

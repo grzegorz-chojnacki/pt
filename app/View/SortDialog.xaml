@@ -4,39 +4,52 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        d:DataContext="{ d:DesignInstance Type=local:SortSettings }"
+        xmlns:local="clr-namespace:app.ViewModel"
         Title="{ Binding Source={ StaticResource Strings }, Path=SortWindow }"
         WindowStartupLocation="CenterOwner"
         Height="300" Width="310">
-    <Grid>
+    <Window.Resources>
+        <local:SortByBoolConverter x:Key="SortByBoolConverter"/>
+        <local:SortDirectionBoolConverter x:Key="SortDirectionBoolConverter" />
+    </Window.Resources>
 
-    <StackPanel Margin="5,5,5,5" VerticalAlignment="Top">
-        <GroupBox>
-            <GroupBox.Header>
-                <Label Content="{ Binding Source={ StaticResource Strings }, Path=SortByHeader }"/>
-            </GroupBox.Header>
-            <StackPanel>
-                <RadioButton x:Name="sortByName" IsChecked="True"
-                    Content="{ Binding Source={ StaticResource Strings }, Path=SortByNameOption }"/>
-                <RadioButton x:Name="sortByExtension"
-                    Content="{ Binding Source={ StaticResource Strings }, Path=SortByExtensionOption }"/>
-                <RadioButton x:Name="sortBySize"
-                    Content="{ Binding Source={ StaticResource Strings }, Path=SortBySizeOption }"/>
-                <RadioButton x:Name="sortByModifiedDate"
-                    Content="{ Binding Source={ StaticResource Strings }, Path=SortByModifiedDateOption }"/>
-            </StackPanel>
-        </GroupBox>
+    <Grid>
+        <StackPanel Margin="5,5,5,5" VerticalAlignment="Top">
+            <GroupBox>
+                <GroupBox.Header>
+                    <Label Content="{ Binding Source={ StaticResource Strings }, Path=SortByHeader }"/>
+                </GroupBox.Header>
+                <StackPanel>
+                    <RadioButton
+                        IsChecked="{ Binding SortBy, Converter = { StaticResource SortByBoolConverter }, ConverterParameter = 0 }"
+                        Content="{ Binding Source={ StaticResource Strings }, Path=SortByNameOption }"/>
+                    <RadioButton
+                        IsChecked="{ Binding SortBy, Converter = { StaticResource SortByBoolConverter }, ConverterParameter = 1 }"
+                        Content="{ Binding Source={ StaticResource Strings }, Path=SortByExtensionOption }"/>
+                    <RadioButton
+                        IsChecked="{ Binding SortBy, Converter = { StaticResource SortByBoolConverter }, ConverterParameter = 2 }"
+                        Content="{ Binding Source={ StaticResource Strings }, Path=SortBySizeOption }"/>
+                    <RadioButton
+                        IsChecked="{ Binding SortBy, Converter = { StaticResource SortByBoolConverter }, ConverterParameter = 3 }"
+                        Content="{ Binding Source={ StaticResource Strings }, Path=SortByModifiedDateOption }"/>
+                </StackPanel>
+            </GroupBox>
             <GroupBox>
                 <GroupBox.Header>
                     <Label Content="{ Binding Source={ StaticResource Strings }, Path=SortDirectionHeader }"/>
                 </GroupBox.Header>
                 <StackPanel>
-                    <RadioButton x:Name="sortAscending"
+                    <RadioButton
+                        IsChecked="{ Binding SortDirection, Converter = { StaticResource SortDirectionBoolConverter }, ConverterParameter = 0 }"
                         Content="{ Binding Source={ StaticResource Strings }, Path=SortAscendingOption }"/>
-                    <RadioButton x:Name="sortDescending"
+                    <RadioButton
+                        IsChecked="{ Binding SortDirection, Converter = { StaticResource SortDirectionBoolConverter }, ConverterParameter = 1 }"
                         Content="{ Binding Source={ StaticResource Strings }, Path=SortDescendingOption }"/>
                 </StackPanel>
-            </GroupBox>
+                </GroupBox>
         </StackPanel>
+
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="10">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
