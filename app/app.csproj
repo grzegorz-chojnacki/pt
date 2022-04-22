@@ -72,6 +72,9 @@
     <Compile Include="View\CreateDialog.xaml.cs">
       <DependentUpon>CreateDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SortDialog.xaml.cs">
+      <DependentUpon>SortDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +89,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\CreateDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SortDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

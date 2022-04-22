@@ -10,8 +10,8 @@
 
 namespace app.Resources {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,15 +23,15 @@ namespace app.Resources {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Strings() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace app.Resources {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace app.Resources {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Archive.
         /// </summary>
@@ -68,7 +68,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("AttrArchive", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hidden.
         /// </summary>
@@ -77,7 +77,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("AttrHidden", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Attributes.
         /// </summary>
@@ -86,7 +86,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("AttributesHeader", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ReadOnly.
         /// </summary>
@@ -95,7 +95,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("AttrReadOnly", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to System.
         /// </summary>
@@ -104,7 +104,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("AttrSystem", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
@@ -113,7 +113,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Directory.
         /// </summary>
@@ -122,7 +122,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("CreateDirectoryOption", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
@@ -131,7 +131,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("CreateFileOption", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Create file or directory.
         /// </summary>
@@ -140,7 +140,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("CreateFileOrDirectoryPrompt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
@@ -149,7 +149,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("CreateMenu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
@@ -158,7 +158,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("CreateName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
@@ -167,7 +167,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("CreateType", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
@@ -176,7 +176,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("CreateWindow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
@@ -185,7 +185,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("DeleteMenu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -194,7 +194,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
@@ -203,7 +203,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("ExitMenu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
@@ -212,7 +212,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("File", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t delete readonly item..
         /// </summary>
@@ -221,7 +221,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("GeneralIOError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Name is not valid..
         /// </summary>
@@ -230,7 +230,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("InvalidNameIOError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
@@ -239,7 +239,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("MainWindow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Open Directory.
         /// </summary>
@@ -248,7 +248,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("OpenDirectory", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Select directory to open..
         /// </summary>
@@ -257,7 +257,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("OpenDirectoryPrompt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
@@ -266,7 +266,7 @@ namespace app.Resources {
                 return ResourceManager.GetString("OpenMenu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Something happend..
         /// </summary>
@@ -275,13 +275,73 @@ namespace app.Resources {
                 return ResourceManager.GetString("OtherIOError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t delete item, access denied..
         /// </summary>
         public static string UnauthorizedIOError {
             get {
                 return ResourceManager.GetString("UnauthorizedIOError", resourceCulture);
+            }
+        }
+
+        public static string SortMenu {
+            get {
+                return ResourceManager.GetString("SortMenu", resourceCulture);
+            }
+        }
+
+        public static string SortWindow {
+            get {
+                return ResourceManager.GetString("SortWindow", resourceCulture);
+            }
+        }
+
+        public static string SortByHeader {
+            get {
+                return ResourceManager.GetString("SortByHeader", resourceCulture);
+            }
+        }
+
+        public static string SortByNameOption {
+            get {
+                return ResourceManager.GetString("SortByNameOption", resourceCulture);
+            }
+        }
+
+        public static string SortByExtensionOption {
+            get {
+                return ResourceManager.GetString("SortByExtensionOption", resourceCulture);
+            }
+        }
+
+        public static string SortBySizeOption {
+            get {
+                return ResourceManager.GetString("SortBySizeOption", resourceCulture);
+            }
+        }
+
+        public static string SortByModifiedDateOption {
+            get {
+                return ResourceManager.GetString("SortByModifiedDateOption", resourceCulture);
+            }
+        }
+
+        public static string SortDirectionHeader {
+            get {
+                return ResourceManager.GetString("SortDirectionHeader", resourceCulture);
+            }
+        }
+
+        public static string SortAscendingOption {
+            get {
+                return ResourceManager.GetString("SortAscendingOption", resourceCulture);
+            }
+        }
+
+        public static string SortDescendingOption {
+            get {
+                return ResourceManager.GetString("SortDescendingOption", resourceCulture);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using app.Resources;
+using app.View;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms;
@@ -28,10 +29,15 @@ namespace app.ViewModel {
                     OpenDirectoryPath(dialog.SelectedPath);
                 }
             });
+            SortRootDirectoryCommand = new RelayCommand(_ => {
+                var dialog = new SortDialog();
+                dialog.ShowDialog();
+            }, _ => Root != null);
         }
 
         public DirectoryInfoViewModel Root { get; set; }
         public RelayCommand OpenRootDirectoryCommand { get; private set; }
+        public RelayCommand SortRootDirectoryCommand { get; private set; }
 
         public void OpenDirectoryPath(string path) {
             Root = new DirectoryInfoViewModel();
