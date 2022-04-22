@@ -4,6 +4,15 @@ using System.Windows.Input;
 
 namespace app.ViewModel {
     public class FileInfoViewModel : FileSystemInfoViewModel {
+
+        public string Icon {
+            get {
+                return (Model.Extension == ".txt")
+                    ? "/Resources/txt.png"
+                    : "/Resources/unknown.png";
+            }
+        }
+
         private ICommand open;
         public ICommand Open {
             get {

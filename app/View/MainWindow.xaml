@@ -26,6 +26,7 @@
 
         <DataTemplate DataType="{ x:Type local:FileInfoViewModel }">
             <StackPanel Orientation="Horizontal">
+                <Image Width="16" Source="{ Binding Icon }"/>
                 <TextBlock Text="{ Binding Name }"/>
                 <StackPanel.ContextMenu>
                     <ContextMenu>
@@ -67,8 +68,8 @@
                        HorizontalAlignment="Stretch">
                 <Menu HorizontalAlignment="Left">
                     <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=File }">
-                        <MenuItem Header="Open" Click="OpenDirectory"/>
-                        <MenuItem Header="Exit" Click="Exit"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu }" Click="OpenDirectory"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=ExitMenu }" Click="Exit"/>
                     </MenuItem>
                 </Menu>
                 <ToolBarPanel HorizontalAlignment="Right" Orientation="Horizontal">

@@ -189,4 +189,7 @@
   <data name="OpenMenu" xml:space="preserve">
     <value>Otwórz</value>
   </data>
+  <data name="ExitMenu" xml:space="preserve">
+    <value>Wyjście</value>
+  </data>
 </root>

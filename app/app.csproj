@@ -108,7 +108,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Strings.pl.resx" />
+    <EmbeddedResource Include="Resources\Strings.pl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
@@ -130,6 +132,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\eng.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\txt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\unknown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
