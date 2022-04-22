@@ -76,14 +76,12 @@
                     </MenuItem>
                 </Menu>
                 <ToolBarPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <ToggleButton x:Name="polishLanguageButton"
-                                    Style="{ StaticResource LangButtonStyle }"
-                                    IsChecked="{ Binding Lang, Converter = { StaticResource LangBoolConverter }, ConverterParameter = pl }">
+                    <ToggleButton Style="{ StaticResource LangButtonStyle }"
+                                  IsChecked="{ Binding Lang, Converter = { StaticResource LangBoolConverter }, ConverterParameter = pl }">
                         <Image Source="/Resources/pl.png" Width="16"/>
                     </ToggleButton>
-                    <ToggleButton x:Name="englishLanguageButton"
-                                    Style="{ StaticResource LangButtonStyle }"
-                                    IsChecked="{ Binding Lang, Converter = { StaticResource LangBoolConverter }, ConverterParameter = en }">
+                    <ToggleButton Style="{ StaticResource LangButtonStyle }"
+                                  IsChecked="{ Binding Lang, Converter = { StaticResource LangBoolConverter }, ConverterParameter = en }">
                         <Image Source="/Resources/eng.png" Width="16"/>
                     </ToggleButton>
                 </ToolBarPanel>
