@@ -18,6 +18,8 @@ namespace app.ViewModel {
             }
         }
 
+        public SortSettings SortSettings = new SortSettings();
+
         public FileExplorer() {
             PropertyChanged += fileExplorerPropertyChanged;
             OpenRootDirectoryCommand = new RelayCommand(_ => {

@@ -76,6 +76,7 @@
       <DependentUpon>SortDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\SortSettings.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
