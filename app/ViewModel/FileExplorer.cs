@@ -1,6 +1,7 @@
 ﻿using app.Resources;
 using System.ComponentModel;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace app.ViewModel {
     public class FileExplorer : ViewModelBase {
@@ -16,18 +17,33 @@ namespace app.ViewModel {
             }
         }
 
-        public DirectoryInfoViewModel Root { get; set; }
-
-        public FileExplorer(string path) {
-            Root = new DirectoryInfoViewModel();
+        public FileExplorer() {
             PropertyChanged += fileExplorerPropertyChanged;
+            OpenRootDirectoryCommand = new RelayCommand(_ => {
+                var dialog = new FolderBrowserDialog() {
+                    Description = Strings.OpenDirectoryPrompt
+                };
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                    OpenDirectoryPath(dialog.SelectedPath);
+                }
+            });
+        }
+
+        public DirectoryInfoViewModel Root { get; set; }
+        public RelayCommand OpenRootDirectoryCommand { get; private set; }
+
+        public void OpenDirectoryPath(string path) {
+            Root = new DirectoryInfoViewModel();
             Root.Open(path);
             NotifyPropertyChanged(nameof(Lang));
+            NotifyPropertyChanged(nameof(Root));
         }
 
         public void fileExplorerPropertyChanged(object sender, PropertyChangedEventArgs e) {
-            if (e.PropertyName == nameof(Lang))
+            if (e.PropertyName == nameof(Lang)) {
                 CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
+            }
         }
     }
 }

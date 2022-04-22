@@ -68,7 +68,8 @@
                        HorizontalAlignment="Stretch">
                 <Menu HorizontalAlignment="Left">
                     <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=File }">
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu }" Click="OpenDirectory"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu }"
+                                  Command="{ Binding OpenRootDirectoryCommand }"/>
                         <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=ExitMenu }" Click="Exit"/>
                     </MenuItem>
                 </Menu>

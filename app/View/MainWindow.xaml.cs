@@ -1,10 +1,8 @@
-﻿using app.Resources;
-using app.ViewModel;
+﻿using app.ViewModel;
 using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 
 namespace app.View {
     public partial class MainWindow : Window {
@@ -13,7 +11,9 @@ namespace app.View {
         public MainWindow() {
             InitializeComponent();
             Instance = this;
-            DataContext = new FileExplorer("C:\\Users\\User\\Downloads");
+            var fileExplorer = new FileExplorer();
+            fileExplorer.OpenDirectoryPath("C:\\Users\\User\\Downloads");
+            DataContext = fileExplorer;
         }
 
         private TreeViewItem TraverseTree(TreeViewItem node, string path) {
@@ -37,16 +37,6 @@ namespace app.View {
                     + (((attributes & FileAttributes.Archive) != 0) ? "a" : "-")
                     + (((attributes & FileAttributes.System) != 0) ? "s" : "-")
                     + (((attributes & FileAttributes.Hidden) != 0) ? "h" : "-");
-        }
-
-        private void OpenDirectory(object sender, RoutedEventArgs e) {
-            var dialog = new FolderBrowserDialog() {
-                Description = Strings.OpenDirectoryPrompt
-            };
-
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                DataContext = new FileExplorer(dialog.SelectedPath);
-            }
         }
 
         private void Exit(object sender, RoutedEventArgs e) {
