@@ -1,8 +1,6 @@
 ﻿using app.ViewModel;
-using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace app.View {
     public partial class MainWindow : Window {
@@ -14,22 +12,6 @@ namespace app.View {
             var fileExplorer = new FileExplorer();
             fileExplorer.OpenDirectoryPath("C:\\Users\\User\\Downloads");
             DataContext = fileExplorer;
-        }
-
-        private TreeViewItem TraverseTree(TreeViewItem node, string path) {
-            try {
-                foreach (var dirPath in Directory.GetDirectories(path)) {
-                    var child = new DirectoryTreeViewItem(dirPath);
-                    TraverseTree(child, dirPath);
-                    node.Items.Add(child);
-                };
-
-                foreach (var filePath in Directory.GetFiles(path)) {
-                    node.Items.Add(new FileTreeViewItem(filePath));
-                };
-            } catch (UnauthorizedAccessException) { /* Do nothing */ }
-
-            return node;
         }
 
         public void SetAttributes(FileAttributes attributes) {

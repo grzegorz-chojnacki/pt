@@ -18,6 +18,18 @@ namespace app.ViewModel {
 
         public bool isExpanded;
 
+        public ICommand CreateCommand { get; }
+
+        public DirectoryInfoViewModel() : base() {
+            CreateCommand = new RelayCommand(param => {
+                new CreateDialog() {
+                    Title = Strings.CreateFileOrDirectoryPrompt,
+                    Owner = MainWindow.Instance,
+                    RootPath = Model.FullName,
+                }.ShowDialog();
+            });
+        }
+
         public bool Open(string path) {
             try {
                 foreach (var dirPath in Directory.GetDirectories(path)) {
@@ -74,19 +86,6 @@ namespace app.ViewModel {
         }
 
         private void OnFileSystemError(object sender, ErrorEventArgs e) { }
-
-        private ICommand create;
-        public ICommand Create {
-            get {
-                return create ?? (create = new RelayCommand(param => {
-                    new CreateDialog() {
-                        Title = Strings.CreateFileOrDirectoryPrompt,
-                        Owner = MainWindow.Instance,
-                        RootPath = Model.FullName,
-                    }.ShowDialog();
-                }));
-            }
-        }
 
         protected override void DeleteHandler() {
             ((DirectoryInfo)Model).Delete(true);

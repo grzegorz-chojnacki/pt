@@ -18,10 +18,19 @@ namespace app.ViewModel {
             }
         }
 
+        public DirectoryInfoViewModel Root { get; set; }
+        public RelayCommand OpenRootDirectoryCommand { get; }
+        public RelayCommand SortRootDirectoryCommand { get; }
+
         public SortSettings SortSettings = new SortSettings();
 
         public FileExplorer() {
-            PropertyChanged += fileExplorerPropertyChanged;
+            PropertyChanged += (_, e) => {
+                    if (e.PropertyName == nameof(Lang)) {
+                        CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
+                    }
+                };
+
             OpenRootDirectoryCommand = new RelayCommand(_ => {
                 var dialog = new FolderBrowserDialog() {
                     Description = Strings.OpenDirectoryPrompt
@@ -31,6 +40,7 @@ namespace app.ViewModel {
                     OpenDirectoryPath(dialog.SelectedPath);
                 }
             });
+
             SortRootDirectoryCommand = new RelayCommand(_ => {
                 var dialog = new SortDialog(SortSettings);
                 if (dialog.ShowDialog() == true) {
@@ -39,21 +49,11 @@ namespace app.ViewModel {
             }, _ => Root != null);
         }
 
-        public DirectoryInfoViewModel Root { get; set; }
-        public RelayCommand OpenRootDirectoryCommand { get; private set; }
-        public RelayCommand SortRootDirectoryCommand { get; private set; }
-
         public void OpenDirectoryPath(string path) {
             Root = new DirectoryInfoViewModel();
             Root.Open(path);
             NotifyPropertyChanged(nameof(Lang));
             NotifyPropertyChanged(nameof(Root));
-        }
-
-        public void fileExplorerPropertyChanged(object sender, PropertyChangedEventArgs e) {
-            if (e.PropertyName == nameof(Lang)) {
-                CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
-            }
         }
     }
 }

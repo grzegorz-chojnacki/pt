@@ -59,26 +59,26 @@ namespace app.ViewModel {
             }
         }
 
-        private ICommand delete;
-        public ICommand Delete {
-            get {
-                return delete ?? (delete = new RelayCommand(param => {
-                    void err(string msg) => System.Windows.MessageBox.Show(msg,
-                        Strings.Error,
-                        MessageBoxButton.OK, MessageBoxImage.Warning);
+        public ICommand DeleteCommand;
 
-                    try {
-                        DeleteHandler();
-                    } catch (UnauthorizedAccessException) {
-                        err(Strings.UnauthorizedIOError);
-                    } catch (IOException) {
-                        err(Strings.GeneralIOError);
-                    } catch (Exception) {
-                        err(Strings.OtherIOError);
-                    }
-                }));
-            }
+        public FileSystemInfoViewModel() : base() {
+            DeleteCommand = new RelayCommand(param => {
+                void err(string msg) => System.Windows.MessageBox.Show(msg,
+                    Strings.Error,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                try {
+                    DeleteHandler();
+                } catch (UnauthorizedAccessException) {
+                    err(Strings.UnauthorizedIOError);
+                } catch (IOException) {
+                    err(Strings.GeneralIOError);
+                } catch (Exception) {
+                    err(Strings.OtherIOError);
+                }
+            });
         }
+
 
         protected abstract void DeleteHandler();
     }

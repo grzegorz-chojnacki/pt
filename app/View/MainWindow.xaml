@@ -17,8 +17,10 @@
                 <TextBlock Text="{ Binding Name }" FontWeight="Bold"/>
                 <StackPanel.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=CreateMenu }" Command="{ Binding Create }"/>
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }" Command="{ Binding Delete }"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=CreateMenu }"
+                                  Command="{ Binding CreateCommand }"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }"
+                                  Command="{ Binding DeleteCommand }"/>
                     </ContextMenu>
                 </StackPanel.ContextMenu>
             </StackPanel>
@@ -30,8 +32,10 @@
                 <TextBlock Text="{ Binding Name }"/>
                 <StackPanel.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu}" Command="{ Binding Open }"/>
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }" Command="{ Binding Delete }"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu}"
+                                  Command="{ Binding OpenCommand }"/>
+                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }"
+                                  Command="{ Binding DeleteCommand }"/>
                     </ContextMenu>
                 </StackPanel.ContextMenu>
             </StackPanel>

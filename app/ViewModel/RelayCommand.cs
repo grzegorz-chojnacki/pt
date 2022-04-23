@@ -3,8 +3,8 @@ using System.Windows.Input;
 
 namespace app.ViewModel {
     public class RelayCommand : ICommand {
-        Action<object> _execute;
-        Predicate<object> _canExecute = _ => true;
+        private Action<object> _execute;
+        private Predicate<object> _canExecute = _ => true;
 
         public RelayCommand(Action<object> execute) {
             _execute = execute;
