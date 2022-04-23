@@ -72,7 +72,7 @@ namespace app.ViewModel {
 
         public FileExplorer Owner { get; }
 
-        public ICommand DeleteCommand;
+        public ICommand DeleteCommand { get; }
 
         public FileSystemInfoViewModel(FileExplorer owner) : base() {
             Owner = owner;
