@@ -1,18 +1,20 @@
 ﻿using app.Resources;
 using app.View;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Resources;
 using System.Windows.Input;
 
 namespace app.ViewModel {
     public class DirectoryInfoViewModel : FileSystemInfoViewModel {
-        public ObservableCollection<FileSystemInfoViewModel> Items { get; private set; }
+        public ObservableCollection<FileSystemInfoViewModel> Items { get; set; }
             = new ObservableCollection<FileSystemInfoViewModel>();
 
         private FileSystemWatcher Watcher;
+
+        new public long Size { get => Items.Count(); }
 
         public bool Open(string path) {
             try {
@@ -83,8 +85,32 @@ namespace app.ViewModel {
                 }));
             }
         }
+
         protected override void DeleteHandler() {
             ((DirectoryInfo)Model).Delete(true);
+        }
+
+        public void Sort(SortSettings sortSettings) {
+            foreach (var item in Items) {
+                if (item is DirectoryInfoViewModel) {
+                    ((DirectoryInfoViewModel)item).Sort(sortSettings);
+                }
+            }
+
+            var fn = (new Dictionary<SortBy, Func<FileSystemInfoViewModel, object>> {
+                [SortBy.Name] = x => x.Name,
+                [SortBy.Size] = x => x.Size,
+                [SortBy.Extension] = x => x.Model.Extension,
+                [SortBy.ModifiedDate] = x => x.LastWriteTime,
+            })[sortSettings.SortBy];
+
+            Items = new ObservableCollection<FileSystemInfoViewModel>(
+                ((sortSettings.SortDirection == SortDirection.Ascending)
+                    ? Items.OrderBy(fn)
+                    : Items.OrderByDescending(fn))
+                .OrderByDescending(item => item is DirectoryInfoViewModel));
+
+            NotifyPropertyChanged(nameof(Items));
         }
     }
 }

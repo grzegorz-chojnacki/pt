@@ -12,8 +12,7 @@ namespace app.View {
         }
 
         private void OkButton(object sender, RoutedEventArgs e) {
-            System.Console.WriteLine(Settings.SortBy);
-            System.Console.WriteLine(Settings.SortDirection);
+            DialogResult = true;
         }
     }
 }

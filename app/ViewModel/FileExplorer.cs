@@ -33,7 +33,9 @@ namespace app.ViewModel {
             });
             SortRootDirectoryCommand = new RelayCommand(_ => {
                 var dialog = new SortDialog(SortSettings);
-                dialog.ShowDialog();
+                if (dialog.ShowDialog() == true) {
+                    Root.Sort(SortSettings);
+                }
             }, _ => Root != null);
         }
 

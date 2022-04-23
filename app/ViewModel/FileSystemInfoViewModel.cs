@@ -28,6 +28,17 @@ namespace app.ViewModel {
             }
         }
 
+        private long size;
+        public long Size {
+            get { return size; }
+            set {
+                if (size != value) {
+                    size = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         private FileSystemInfo model;
         public FileSystemInfo Model {
             get { return model; }
@@ -35,6 +46,13 @@ namespace app.ViewModel {
                 if (model != value) {
                     model = value;
                     LastWriteTime = value.LastWriteTime;
+
+                    try {
+                        Size = new FileInfo(value.FullName).Length;
+                    } catch (Exception) {
+                        Size = 0;
+                    }
+
                     Name = value.Name;
                     NotifyPropertyChanged();
                 }
