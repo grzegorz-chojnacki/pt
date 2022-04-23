@@ -9,43 +9,6 @@
     Height="450"
     Width="800">
     <Window.Resources>
-        <HierarchicalDataTemplate
-            DataType="{ x:Type local:DirectoryInfoViewModel}"
-            ItemsSource="{ Binding Items }">
-            <StackPanel Orientation="Horizontal">
-                <Image Width="16" Source="/Resources/folder.png"/>
-                <TextBlock Text="{ Binding Name }" FontWeight="Bold"/>
-                <StackPanel.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=CreateMenu }"
-                                  Command="{ Binding CreateCommand }"/>
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }"
-                                  Command="{ Binding DeleteCommand }"/>
-                    </ContextMenu>
-                </StackPanel.ContextMenu>
-            </StackPanel>
-        </HierarchicalDataTemplate>
-
-        <DataTemplate DataType="{ x:Type local:FileInfoViewModel }">
-            <StackPanel Orientation="Horizontal">
-                <Image Width="16" Source="{ Binding Icon }"/>
-                <TextBlock Text="{ Binding Name }">
-                    <TextBlock.InputBindings>
-                        <MouseBinding MouseAction="LeftDoubleClick"
-                            Command="{Binding OpenCommand}" />
-                    </TextBlock.InputBindings>
-                </TextBlock>
-                <StackPanel.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu}"
-                                  Command="{ Binding OpenCommand }"/>
-                        <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }"
-                                  Command="{ Binding DeleteCommand }"/>
-                    </ContextMenu>
-                </StackPanel.ContextMenu>
-            </StackPanel>
-        </DataTemplate>
-
         <local:LangBoolConverter x:Key="LangBoolConverter"/>
 
         <Style x:Key="LangButtonStyle" TargetType="ToggleButton">
@@ -100,8 +63,6 @@
         <TreeView
             Grid.Row="1"
             Grid.Column="0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             x:Name="treeView"
             ItemsSource="{ Binding Root.Items }">
             <TreeView.ItemContainerStyle>
@@ -109,6 +70,44 @@
                     <Setter Property="IsExpanded" Value="{ Binding IsExpanded, Mode=TwoWay }"/>
                 </Style>
             </TreeView.ItemContainerStyle>
+            <TreeView.Resources>
+                <HierarchicalDataTemplate
+                    DataType="{ x:Type local:DirectoryInfoViewModel}"
+                    ItemsSource="{ Binding Items }">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="16" Source="/Resources/folder.png"/>
+                        <TextBlock Text="{ Binding Name }" FontWeight="Bold"/>
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=CreateMenu }"
+                                          Command="{ Binding CreateCommand }"/>
+                                <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }"
+                                          Command="{ Binding DeleteCommand }"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+
+                <DataTemplate DataType="{ x:Type local:FileInfoViewModel }">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="16" Source="{ Binding Icon }"/>
+                        <TextBlock Text="{ Binding Name }">
+                            <TextBlock.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick"
+                                    Command="{Binding OpenCommand}" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu}"
+                                          Command="{ Binding OpenCommand }"/>
+                                <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=DeleteMenu }"
+                                          Command="{ Binding DeleteCommand }"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
         </TreeView>
 
         <StatusBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom">

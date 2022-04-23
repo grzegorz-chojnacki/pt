@@ -17,6 +17,17 @@ namespace app.ViewModel {
             }
         }
 
+        private bool isExpanded = false;
+        public bool IsExpanded {
+            get { return isExpanded; }
+            set {
+                if (isExpanded != value) {
+                    isExpanded = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         private string name;
         public string Name {
             get { return name; }

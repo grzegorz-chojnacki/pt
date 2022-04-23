@@ -16,8 +16,6 @@ namespace app.ViewModel {
 
         new public long Size { get => Items.Count(); }
 
-        public bool isExpanded;
-
         public ICommand CreateCommand { get; }
 
         public DirectoryInfoViewModel(FileExplorer owner) : base(owner) {
@@ -87,9 +85,7 @@ namespace app.ViewModel {
 
         private void OnFileSystemError(object sender, ErrorEventArgs e) { }
 
-        protected override void DeleteHandler() {
-            ((DirectoryInfo)Model).Delete(true);
-        }
+        protected override void DeleteHandler() => ((DirectoryInfo)Model).Delete(true);
 
         public void Sort(SortSettings sortSettings) {
             foreach (var item in Items) {
@@ -112,7 +108,6 @@ namespace app.ViewModel {
                 .OrderByDescending(item => item is DirectoryInfoViewModel));
 
             NotifyPropertyChanged(nameof(Items));
-            NotifyPropertyChanged(nameof(isExpanded));
         }
     }
 }
