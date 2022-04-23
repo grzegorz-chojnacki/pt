@@ -19,7 +19,8 @@ namespace app.View {
         }
 
         private void Exit(object sender, RoutedEventArgs e) {
-            System.Windows.Forms.Application.Exit();
+            Close();
+            return;
         }
     }
 }
