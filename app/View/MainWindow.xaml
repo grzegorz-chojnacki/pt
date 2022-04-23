@@ -94,7 +94,13 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             x:Name="treeView"
-            ItemsSource="{ Binding Root.Items }"/>
+            ItemsSource="{ Binding Root.Items }">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{ x:Type TreeViewItem }">
+                    <Setter Property="IsExpanded" Value="{ Binding IsExpanded, Mode=TwoWay }"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
 
         <StatusBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom">
             <StatusBarItem>

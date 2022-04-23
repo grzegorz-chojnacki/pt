@@ -16,6 +16,8 @@ namespace app.ViewModel {
 
         new public long Size { get => Items.Count(); }
 
+        public bool isExpanded;
+
         public bool Open(string path) {
             try {
                 foreach (var dirPath in Directory.GetDirectories(path)) {
@@ -111,6 +113,7 @@ namespace app.ViewModel {
                 .OrderByDescending(item => item is DirectoryInfoViewModel));
 
             NotifyPropertyChanged(nameof(Items));
+            NotifyPropertyChanged(nameof(isExpanded));
         }
     }
 }
