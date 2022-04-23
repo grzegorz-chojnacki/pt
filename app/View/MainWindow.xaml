@@ -29,7 +29,12 @@
         <DataTemplate DataType="{ x:Type local:FileInfoViewModel }">
             <StackPanel Orientation="Horizontal">
                 <Image Width="16" Source="{ Binding Icon }"/>
-                <TextBlock Text="{ Binding Name }"/>
+                <TextBlock Text="{ Binding Name }">
+                    <TextBlock.InputBindings>
+                        <MouseBinding MouseAction="LeftDoubleClick"
+                            Command="{Binding OpenCommand}" />
+                    </TextBlock.InputBindings>
+                </TextBlock>
                 <StackPanel.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{ Binding Source={ StaticResource Strings }, Path=OpenMenu}"
