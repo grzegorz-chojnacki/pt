@@ -192,9 +192,8 @@
   <data name="ExitMenu" xml:space="preserve">
     <value>Exit</value>
   </data>
-
   <data name="SortMenu" xml:space="preserve">
-    <value>Sort directory tree</value>
+    <value>Sort files</value>
   </data>
   <data name="SortWindow" xml:space="preserve">
     <value>Sort settings</value>
@@ -209,7 +208,7 @@
     <value>Extension</value>
   </data>
   <data name="SortBySizeOption" xml:space="preserve">
-    <value>Size (or sub elements)</value>
+    <value>Size (or number of sub items)</value>
   </data>
   <data name="SortByModifiedDateOption" xml:space="preserve">
     <value>Last modified date</value>
