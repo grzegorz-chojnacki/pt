@@ -1,6 +1,5 @@
 ﻿using app.Resources;
 using app.View;
-using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -21,10 +20,13 @@ namespace app.ViewModel {
         public DirectoryInfoViewModel Root { get; set; }
         public RelayCommand OpenRootDirectoryCommand { get; }
         public RelayCommand SortRootDirectoryCommand { get; }
-
         public SortSettings SortSettings = new SortSettings();
 
-        public FileExplorer() {
+        public MainWindow Window { get; }
+
+        public FileExplorer(MainWindow window) {
+            Window = window;
+
             PropertyChanged += (_, e) => {
                     if (e.PropertyName == nameof(Lang)) {
                         CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
@@ -50,7 +52,7 @@ namespace app.ViewModel {
         }
 
         public void OpenDirectoryPath(string path) {
-            Root = new DirectoryInfoViewModel();
+            Root = new DirectoryInfoViewModel(this);
             Root.Open(path);
             NotifyPropertyChanged(nameof(Lang));
             NotifyPropertyChanged(nameof(Root));

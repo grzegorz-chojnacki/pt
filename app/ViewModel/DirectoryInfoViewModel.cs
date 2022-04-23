@@ -20,11 +20,11 @@ namespace app.ViewModel {
 
         public ICommand CreateCommand { get; }
 
-        public DirectoryInfoViewModel() : base() {
+        public DirectoryInfoViewModel(FileExplorer owner) : base(owner) {
             CreateCommand = new RelayCommand(param => {
                 new CreateDialog() {
                     Title = Strings.CreateFileOrDirectoryPrompt,
-                    Owner = MainWindow.Instance,
+                    Owner = owner.Window,
                     RootPath = Model.FullName,
                 }.ShowDialog();
             });
@@ -33,13 +33,13 @@ namespace app.ViewModel {
         public bool Open(string path) {
             try {
                 foreach (var dirPath in Directory.GetDirectories(path)) {
-                    var dir = new DirectoryInfoViewModel { Model = new DirectoryInfo(dirPath) };
+                    var dir = new DirectoryInfoViewModel(Owner) { Model = new DirectoryInfo(dirPath) };
                     dir.Open(dirPath);
                     Items.Add(dir);
                 }
 
                 foreach (var filePath in Directory.GetFiles(path)) {
-                    Items.Add(new FileInfoViewModel { Model = new FileInfo(filePath) });
+                    Items.Add(new FileInfoViewModel(Owner) { Model = new FileInfo(filePath) });
                 }
 
                 Watcher = new FileSystemWatcher(path) { EnableRaisingEvents = true };
@@ -75,9 +75,9 @@ namespace app.ViewModel {
 
         private FileSystemInfoViewModel NewFileSystemEntity(string path) {
             if (File.Exists(path)) {
-                return new FileInfoViewModel { Model = new FileInfo(path) };
+                return new FileInfoViewModel(Owner) { Model = new FileInfo(path) };
             } else if (Directory.Exists(path)) {
-                var dir = new DirectoryInfoViewModel { Model = new DirectoryInfo(path) };
+                var dir = new DirectoryInfoViewModel(Owner) { Model = new DirectoryInfo(path) };
                 dir.Open(path);
                 return dir;
             } else {

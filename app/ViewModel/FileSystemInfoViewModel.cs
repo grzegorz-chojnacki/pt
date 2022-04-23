@@ -59,9 +59,12 @@ namespace app.ViewModel {
             }
         }
 
+        public FileExplorer Owner { get; }
+
         public ICommand DeleteCommand;
 
-        public FileSystemInfoViewModel() : base() {
+        public FileSystemInfoViewModel(FileExplorer owner) : base() {
+            Owner = owner;
             DeleteCommand = new RelayCommand(param => {
                 void err(string msg) => System.Windows.MessageBox.Show(msg,
                     Strings.Error,

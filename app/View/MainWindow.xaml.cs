@@ -4,18 +4,15 @@ using System.Windows;
 
 namespace app.View {
     public partial class MainWindow : Window {
-        public static MainWindow Instance;
-
         public MainWindow() {
             InitializeComponent();
-            Instance = this;
-            var fileExplorer = new FileExplorer();
+            var fileExplorer = new FileExplorer(this);
             fileExplorer.OpenDirectoryPath("C:\\Users\\User\\Downloads");
             DataContext = fileExplorer;
         }
 
         public void SetAttributes(FileAttributes attributes) {
-            Instance.status.Text = (((attributes & FileAttributes.ReadOnly) != 0) ? "r" : "-")
+            status.Text = (((attributes & FileAttributes.ReadOnly) != 0) ? "r" : "-")
                     + (((attributes & FileAttributes.Archive) != 0) ? "a" : "-")
                     + (((attributes & FileAttributes.System) != 0) ? "s" : "-")
                     + (((attributes & FileAttributes.Hidden) != 0) ? "h" : "-");

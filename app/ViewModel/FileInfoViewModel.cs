@@ -1,5 +1,4 @@
-﻿using app.View;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Input;
 
 namespace app.ViewModel {
@@ -11,11 +10,11 @@ namespace app.ViewModel {
 
         public ICommand OpenCommand { get; }
 
-        public FileInfoViewModel() : base() {
+        public FileInfoViewModel(FileExplorer owner) : base(owner) {
             OpenCommand = new RelayCommand(param => {
                 if (Model.Extension == ".txt") {
                     using (var reader = File.OpenText(Model.FullName)) {
-                        MainWindow.Instance.fileView.Text = reader.ReadToEnd();
+                        owner.Window.fileView.Text = reader.ReadToEnd();
                     }
                 };
             });
