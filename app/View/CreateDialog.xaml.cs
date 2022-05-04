@@ -2,6 +2,7 @@
 using System.Windows;
 using System.IO;
 using app.Resources;
+using System.Diagnostics;
 
 namespace app.View {
     public partial class CreateDialog : Window {
@@ -37,7 +38,7 @@ namespace app.View {
             } catch (ArgumentException) {
                 err(Strings.InvalidNameIOError);
             } catch (Exception ex) {
-                Console.WriteLine(ex);
+                Debug.WriteLine(ex);
                 err(Strings.OtherIOError);
             }
         }

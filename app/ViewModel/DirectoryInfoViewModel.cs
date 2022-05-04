@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -152,7 +153,7 @@ namespace app.ViewModel {
             foreach (var item in Items) {
                 if (item is DirectoryInfoViewModel dir) {
                     tasks.Append(Task.Factory.StartNew(() => {
-                        Console.WriteLine(dir.Name);
+                        Debug.WriteLine(dir.Name);
                         dir.Sort(sortSettings);
                     }));
                 }
