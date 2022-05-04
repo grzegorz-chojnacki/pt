@@ -222,4 +222,13 @@
   <data name="SortDescendingOption" xml:space="preserve">
     <value>Malejąco</value>
   </data>
+  <data name="SortStatus" xml:space="preserve">
+    <value>Sortowanie</value>
+  </data>
+  <data name="OpenStatus" xml:space="preserve">
+    <value>Otwieranie</value>
+  </data>
+  <data name="ReadyStatus" xml:space="preserve">
+    <value>Gotowe</value>
+  </data>
 </root>

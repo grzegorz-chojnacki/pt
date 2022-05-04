@@ -42,10 +42,11 @@ namespace app.ViewModel {
             Window = window;
 
             PropertyChanged += (_, e) => {
-                    if (e.PropertyName == nameof(Lang)) {
-                        CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
-                    }
-                };
+                if (e.PropertyName == nameof(Lang)) {
+                    CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
+                    StatusMessage = Strings.ReadyStatus;
+                }
+            };
 
             OpenRootDirectoryCommand = new RelayCommand(async _ => {
                 var dialog = new FolderBrowserDialog() {

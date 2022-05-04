@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Input;
 
 namespace app.ViewModel {
@@ -58,7 +57,7 @@ namespace app.ViewModel {
             try {
                 foreach (var dirPath in Directory.GetDirectories(path)) {
                     var dir = new DirectoryInfoViewModel(Owner) { Model = new DirectoryInfo(dirPath) };
-                    StatusMessage = "Opening " + dir.Model.Name + "...";
+                    StatusMessage = $"{Strings.OpenStatus} {dir.Model.Name}...";
                     dir.Open(dirPath);
                     Items.Add(dir);
                 }
@@ -75,7 +74,7 @@ namespace app.ViewModel {
                 Watcher.Renamed += OnFileSystemRename;
                 Watcher.Error += OnFileSystemError;
 
-                StatusMessage = "Ready";
+                StatusMessage = Strings.ReadyStatus;
                 return true;
             } catch (Exception) {
                 return false;
@@ -133,7 +132,7 @@ namespace app.ViewModel {
         protected override void DeleteHandler() => ((DirectoryInfo)Model).Delete(true);
 
         public void Sort(SortSettings sortSettings) {
-            StatusMessage = "Sorting " + Model.Name + "...";
+            StatusMessage = $"{Strings.SortStatus} {Model.Name}...";
 
             var fn = (new Dictionary<SortBy, Func<FileSystemInfoViewModel, object>> {
                 [SortBy.Name] = x => x.Name,
@@ -156,7 +155,7 @@ namespace app.ViewModel {
 
             // Thread.Sleep(50);
 
-            StatusMessage = "Ready";
+            StatusMessage = Strings.ReadyStatus;
             NotifyPropertyChanged(nameof(Items));
         }
     }

@@ -136,7 +136,7 @@
     <value>Open Directory</value>
   </data>
   <data name="OpenDirectoryPrompt" xml:space="preserve">
-    <value>Select directory to open.</value>
+    <value>Select directory to open</value>
   </data>
   <data name="OtherIOError" xml:space="preserve">
     <value>Something happend.</value>
@@ -221,5 +221,14 @@
   </data>
   <data name="SortDescendingOption" xml:space="preserve">
     <value>Descending</value>
+  </data>
+  <data name="SortStatus" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="OpenStatus" xml:space="preserve">
+    <value>Opening</value>
+  </data>
+  <data name="ReadyStatus" xml:space="preserve">
+    <value>Ready</value>
   </data>
 </root>
