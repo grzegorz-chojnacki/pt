@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace app.ViewModel {
@@ -147,11 +148,16 @@ namespace app.ViewModel {
                     : Items.OrderByDescending(fn))
                 .OrderByDescending(item => item is DirectoryInfoViewModel));
 
+            var tasks = new List<Task>();
             foreach (var item in Items) {
                 if (item is DirectoryInfoViewModel dir) {
-                    dir.Sort(sortSettings);
+                    tasks.Append(Task.Factory.StartNew(() => {
+                        Console.WriteLine(dir.Name);
+                        dir.Sort(sortSettings);
+                    }));
                 }
             }
+            Task.WaitAll(tasks.ToArray());
 
             // Thread.Sleep(50);
 
