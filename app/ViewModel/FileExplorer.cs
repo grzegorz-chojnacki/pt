@@ -1,6 +1,7 @@
 ﻿using app.Resources;
 using app.View;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace app.ViewModel {
@@ -33,13 +34,15 @@ namespace app.ViewModel {
                     }
                 };
 
-            OpenRootDirectoryCommand = new RelayCommand(_ => {
+            OpenRootDirectoryCommand = new RelayCommand(async _ => {
                 var dialog = new FolderBrowserDialog() {
                     Description = Strings.OpenDirectoryPrompt
                 };
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                    OpenDirectoryPath(dialog.SelectedPath);
+                    await Task.Factory.StartNew(() => {
+                        OpenDirectoryPath(dialog.SelectedPath);
+                    });
                 }
             });
 
