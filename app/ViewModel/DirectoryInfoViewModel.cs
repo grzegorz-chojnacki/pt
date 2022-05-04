@@ -57,8 +57,17 @@ namespace app.ViewModel {
         private void OnFileSystemChange(object sender, FileSystemEventArgs e) {
             void ThreadAction(Action f) => App.Current.Dispatcher.Invoke(delegate { f(); });
 
-            void Create() => ThreadAction(() => Items.Add(NewFileSystemEntity(e.FullPath)));
-            void Delete() => ThreadAction(() => Items.Remove(Items.Single(x => x.Model.Name == e.Name)));
+            void Delete() => ThreadAction(() => {
+                if (!Items.Any(x => x.Model.Name == e.Name)) return;
+                Items.Remove(Items.First(x => x.Model.Name == e.Name));
+            });
+
+            void Create() => ThreadAction(() => {
+                var entity = NewFileSystemEntity(e.FullPath);
+                if (entity != null) {
+                    Items.Add(entity);
+                }
+            });
 
             switch (e.ChangeType) {
                 case WatcherChangeTypes.Created: Create(); break;
@@ -68,7 +77,15 @@ namespace app.ViewModel {
         }
 
         private void OnFileSystemRename(object sender, RenamedEventArgs e) {
-            Items.Single(x => x.Model.Name == e.OldName).Model = NewFileSystemEntity(e.FullPath).Model;
+            if (!Items.Any(x => x.Model.Name == e.OldName)) return;
+
+            var entity = NewFileSystemEntity(e.FullPath);
+            var target = Items.First(x => x.Model.Name == e.OldName);
+            if (entity != null) {
+                target.Model = entity.Model;
+            } else {
+                Items.Remove(target);
+            }
         }
 
         private FileSystemInfoViewModel NewFileSystemEntity(string path) {
@@ -79,7 +96,7 @@ namespace app.ViewModel {
                 dir.Open(path);
                 return dir;
             } else {
-                throw new Exception(path);
+                return null;
             }
         }
 
