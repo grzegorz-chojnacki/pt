@@ -2,6 +2,7 @@
 using app.View;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -58,16 +59,18 @@ namespace app.ViewModel {
                 }
             });
 
-            SortRootDirectoryCommand = new RelayCommand(_ => {
+            SortRootDirectoryCommand = new RelayCommand(async _ => {
                 var dialog = new SortDialog(SortSettings);
                 if (dialog.ShowDialog() == true) {
-                    Root.Sort(SortSettings);
+                    await Task.Factory.StartNew(() => {
+                        Root.Sort(SortSettings);
+                    });
                 }
             }, _ => Root != null);
         }
 
         public void OpenDirectoryPath(string path) {
-            Root = new DirectoryInfoViewModel(this);
+            Root = new DirectoryInfoViewModel(this) { Model = new DirectoryInfo(path) };
             Root.PropertyChanged += (object sender, PropertyChangedEventArgs args) => {
                 if (args.PropertyName == "StatusMessage" && sender is FileSystemInfoViewModel viewModel) {
                     StatusMessage = viewModel.StatusMessage;

@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Input;
 
 namespace app.ViewModel {
@@ -132,11 +133,7 @@ namespace app.ViewModel {
         protected override void DeleteHandler() => ((DirectoryInfo)Model).Delete(true);
 
         public void Sort(SortSettings sortSettings) {
-            foreach (var item in Items) {
-                if (item is DirectoryInfoViewModel) {
-                    ((DirectoryInfoViewModel)item).Sort(sortSettings);
-                }
-            }
+            StatusMessage = "Sorting " + Model.Name + "...";
 
             var fn = (new Dictionary<SortBy, Func<FileSystemInfoViewModel, object>> {
                 [SortBy.Name] = x => x.Name,
@@ -151,6 +148,15 @@ namespace app.ViewModel {
                     : Items.OrderByDescending(fn))
                 .OrderByDescending(item => item is DirectoryInfoViewModel));
 
+            foreach (var item in Items) {
+                if (item is DirectoryInfoViewModel dir) {
+                    dir.Sort(sortSettings);
+                }
+            }
+
+            // Thread.Sleep(50);
+
+            StatusMessage = "Ready";
             NotifyPropertyChanged(nameof(Items));
         }
     }
