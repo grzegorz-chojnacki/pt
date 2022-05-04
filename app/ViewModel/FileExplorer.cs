@@ -56,9 +56,9 @@ namespace app.ViewModel {
 
         public void OpenDirectoryPath(string path) {
             Root = new DirectoryInfoViewModel(this);
+            NotifyPropertyChanged(nameof(Root));
             Root.Open(path);
             NotifyPropertyChanged(nameof(Lang));
-            NotifyPropertyChanged(nameof(Root));
         }
     }
 }

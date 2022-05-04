@@ -9,8 +9,8 @@ using System.Windows.Input;
 
 namespace app.ViewModel {
     public class DirectoryInfoViewModel : FileSystemInfoViewModel {
-        public ObservableCollection<FileSystemInfoViewModel> Items { get; set; }
-            = new ObservableCollection<FileSystemInfoViewModel>();
+        public DispatchedObservableCollection<FileSystemInfoViewModel> Items { get; set; }
+            = new DispatchedObservableCollection<FileSystemInfoViewModel>();
 
         private FileSystemWatcher Watcher;
 
@@ -118,7 +118,7 @@ namespace app.ViewModel {
                 [SortBy.ModifiedDate] = x => x.LastWriteTime,
             })[sortSettings.SortBy];
 
-            Items = new ObservableCollection<FileSystemInfoViewModel>(
+            Items = new DispatchedObservableCollection<FileSystemInfoViewModel>(
                 ((sortSettings.SortDirection == SortDirection.Ascending)
                     ? Items.OrderBy(fn)
                     : Items.OrderByDescending(fn))
