@@ -112,7 +112,7 @@
 
         <StatusBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom">
             <StatusBarItem>
-                <TextBlock x:Name="status"/>
+                <TextBlock Text="{ Binding StatusMessage }"/>
             </StatusBarItem>
         </StatusBar>
 

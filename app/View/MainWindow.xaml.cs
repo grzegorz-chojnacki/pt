@@ -12,10 +12,10 @@ namespace app.View {
         }
 
         public void SetAttributes(FileAttributes attributes) {
-            status.Text = (((attributes & FileAttributes.ReadOnly) != 0) ? "r" : "-")
-                    + (((attributes & FileAttributes.Archive) != 0) ? "a" : "-")
-                    + (((attributes & FileAttributes.System) != 0) ? "s" : "-")
-                    + (((attributes & FileAttributes.Hidden) != 0) ? "h" : "-");
+            // status.Text = (((attributes & FileAttributes.ReadOnly) != 0) ? "r" : "-")
+            //         + (((attributes & FileAttributes.Archive) != 0) ? "a" : "-")
+            //         + (((attributes & FileAttributes.System) != 0) ? "s" : "-")
+            //         + (((attributes & FileAttributes.Hidden) != 0) ? "h" : "-");
         }
 
         private void Exit(object sender, RoutedEventArgs e) {

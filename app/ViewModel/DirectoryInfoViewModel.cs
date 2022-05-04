@@ -2,7 +2,8 @@
 using app.View;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -26,12 +27,37 @@ namespace app.ViewModel {
                     RootPath = Model.FullName,
                 }.ShowDialog();
             });
+
+            void ItemsPropertyChanged(object sender, PropertyChangedEventArgs args) {
+                if (args.PropertyName == "StatusMessage" && sender is FileSystemInfoViewModel viewModel) {
+                    StatusMessage = viewModel.StatusMessage;
+                }
+            };
+
+            Items.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) => {
+                if (args.NewItems == null) return;
+
+                switch (args.Action) {
+                    case NotifyCollectionChangedAction.Add:
+                        foreach (var item in args.NewItems.Cast<FileSystemInfoViewModel>()) {
+                            item.PropertyChanged += ItemsPropertyChanged;
+                        }
+                        break;
+
+                    case NotifyCollectionChangedAction.Remove:
+                        foreach (var item in args.NewItems.Cast<FileSystemInfoViewModel>()) {
+                            item.PropertyChanged -= ItemsPropertyChanged;
+                        }
+                        break;
+                }
+            };
         }
 
         public bool Open(string path) {
             try {
                 foreach (var dirPath in Directory.GetDirectories(path)) {
                     var dir = new DirectoryInfoViewModel(Owner) { Model = new DirectoryInfo(dirPath) };
+                    StatusMessage = "Opening " + dir.Model.Name + "...";
                     dir.Open(dirPath);
                     Items.Add(dir);
                 }
@@ -48,6 +74,7 @@ namespace app.ViewModel {
                 Watcher.Renamed += OnFileSystemRename;
                 Watcher.Error += OnFileSystemError;
 
+                StatusMessage = "Ready";
                 return true;
             } catch (Exception) {
                 return false;

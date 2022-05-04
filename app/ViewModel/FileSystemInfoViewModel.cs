@@ -50,6 +50,17 @@ namespace app.ViewModel {
             }
         }
 
+        private String statusMessage;
+        public String StatusMessage {
+            get { return statusMessage; }
+            set {
+                if (statusMessage != value) {
+                    statusMessage = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         private FileSystemInfo model;
         public FileSystemInfo Model {
             get { return model; }

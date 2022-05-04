@@ -1,5 +1,6 @@
 ﻿using app.Resources;
 using app.View;
+using System.ComponentModel;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,17 @@ namespace app.ViewModel {
                         CultureInfo.CurrentUICulture = new CultureInfo(value);
                         NotifyPropertyChanged();
                     }
+                }
+            }
+        }
+
+        private string statusMessage = "";
+        public string StatusMessage {
+            get { return statusMessage; }
+            set {
+                if (statusMessage != value) {
+                    statusMessage = value;
+                    NotifyPropertyChanged();
                 }
             }
         }
@@ -56,9 +68,15 @@ namespace app.ViewModel {
 
         public void OpenDirectoryPath(string path) {
             Root = new DirectoryInfoViewModel(this);
+            Root.PropertyChanged += (object sender, PropertyChangedEventArgs args) => {
+                if (args.PropertyName == "StatusMessage" && sender is FileSystemInfoViewModel viewModel) {
+                    StatusMessage = viewModel.StatusMessage;
+                }
+            };
+
             NotifyPropertyChanged(nameof(Root));
-            Root.Open(path);
             NotifyPropertyChanged(nameof(Lang));
+            Root.Open(path);
         }
     }
 }
