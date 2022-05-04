@@ -58,11 +58,12 @@ namespace app.ViewModel {
 
         public bool Open(string path) {
             try {
+                StatusMessage = $"{Strings.OpenStatus} {Model.Name}...";
+
                 foreach (var dirPath in Directory.GetDirectories(path)) {
                     var dir = new DirectoryInfoViewModel(Owner) { Model = new DirectoryInfo(dirPath) };
-                    StatusMessage = $"{Strings.OpenStatus} {dir.Model.Name}...";
-                    dir.Open(dirPath);
                     Items.Add(dir);
+                    dir.Open(dirPath);
                 }
 
                 foreach (var filePath in Directory.GetFiles(path)) {
@@ -77,7 +78,6 @@ namespace app.ViewModel {
                 Watcher.Renamed += OnFileSystemRename;
                 Watcher.Error += OnFileSystemError;
 
-                StatusMessage = Strings.ReadyStatus;
                 return true;
             } catch (Exception) {
                 return false;
@@ -155,17 +155,18 @@ namespace app.ViewModel {
                 if (item is DirectoryInfoViewModel dir) {
                     tasks.Append(Task.Factory.StartNew(() => {
                         Debug.WriteLine($"Sorting: {dir.Name}");
+                        StatusMessage = $"=> {Model.Name}";
                         Owner.ThreadCount++;
                         if (Owner.MaxThreadId < Thread.CurrentThread.ManagedThreadId) {
                             Owner.MaxThreadId = Thread.CurrentThread.ManagedThreadId;
                         }
+
                         dir.Sort(sortSettings);
-                    }));
+                    }, TaskCreationOptions.LongRunning | TaskCreationOptions.PreferFairness));
                 }
             }
-            Task.WaitAll(tasks.ToArray());
 
-            StatusMessage = Strings.ReadyStatus;
+            Task.WaitAll(tasks.ToArray());
             NotifyPropertyChanged(nameof(Items));
         }
     }
