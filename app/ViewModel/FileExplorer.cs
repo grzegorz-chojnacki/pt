@@ -1,6 +1,7 @@
 ﻿using app.Resources;
 using app.View;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace app.ViewModel {
                 }
             }
         }
+
+        public int MaxThreadId = 0;
+        public int ThreadCount = 0;
 
         public DirectoryInfoViewModel Root { get; set; }
         public RelayCommand OpenRootDirectoryCommand { get; }
@@ -63,9 +67,14 @@ namespace app.ViewModel {
             SortRootDirectoryCommand = new RelayCommand(async _ => {
                 var dialog = new SortDialog(SortSettings);
                 if (dialog.ShowDialog() == true) {
+                    MaxThreadId = 0;
+                    ThreadCount = 0;
                     await Task.Factory.StartNew(() => {
                         Root.Sort(SortSettings);
                     });
+                    Debug.WriteLine($"MaxThreadId: {MaxThreadId}");
+                    Debug.WriteLine($"ThreadCount: {ThreadCount}");
+                    Debug.WriteLine("---------------------------");
                 }
             }, _ => Root != null);
         }

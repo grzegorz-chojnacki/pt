@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -153,14 +154,16 @@ namespace app.ViewModel {
             foreach (var item in Items) {
                 if (item is DirectoryInfoViewModel dir) {
                     tasks.Append(Task.Factory.StartNew(() => {
-                        Debug.WriteLine(dir.Name);
+                        Debug.WriteLine($"Sorting: {dir.Name}");
+                        Owner.ThreadCount++;
+                        if (Owner.MaxThreadId < Thread.CurrentThread.ManagedThreadId) {
+                            Owner.MaxThreadId = Thread.CurrentThread.ManagedThreadId;
+                        }
                         dir.Sort(sortSettings);
                     }));
                 }
             }
             Task.WaitAll(tasks.ToArray());
-
-            // Thread.Sleep(50);
 
             StatusMessage = Strings.ReadyStatus;
             NotifyPropertyChanged(nameof(Items));
