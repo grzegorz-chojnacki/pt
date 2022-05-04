@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -39,6 +40,9 @@ namespace app.ViewModel {
         public RelayCommand OpenRootDirectoryCommand { get; }
         public RelayCommand SortRootDirectoryCommand { get; }
         public SortSettings SortSettings = new SortSettings();
+        public RelayCommand CancelSortingCommand { get; }
+        private CancellationTokenSource CancelTokenSource;
+
 
         public MainWindow Window { get; }
 
@@ -67,17 +71,30 @@ namespace app.ViewModel {
             SortRootDirectoryCommand = new RelayCommand(async _ => {
                 var dialog = new SortDialog(SortSettings);
                 if (dialog.ShowDialog() == true) {
-                    await Task.Factory.StartNew(() => {
-                        MaxThreadId = 0;
-                        ThreadCount = 0;
-                        Root.Sort(SortSettings);
-                        Debug.WriteLine($"MaxThreadId: {MaxThreadId}");
-                        Debug.WriteLine($"ThreadCount: {ThreadCount}");
-                        Debug.WriteLine("---------------------------");
-                        StatusMessage = Strings.ReadyStatus;
-                    });
+                    MaxThreadId = ThreadCount = 0;
+                    CancelTokenSource = new CancellationTokenSource();
+
+                    await Task.Factory.StartNew(async x => {
+                        await Root.Sort(SortSettings, CancelTokenSource.Token);
+                    }, CancelTokenSource.Token, TaskCreationOptions.LongRunning).Unwrap();
+
+                    Debug.WriteLine($"MaxThreadId: {MaxThreadId}");
+                    Debug.WriteLine($"ThreadCount: {ThreadCount}");
+                    Debug.WriteLine("---------------------------");
+
+                    CancelTokenSource.Dispose();
+                    CancelTokenSource = null;
+                    StatusMessage = Strings.ReadyStatus;
                 }
             }, _ => Root != null);
+
+            CancelSortingCommand = new RelayCommand(_ => {
+                Debug.WriteLine(CancelTokenSource.Token.CanBeCanceled);
+                if (CancelTokenSource.Token.CanBeCanceled) {
+                    CancelTokenSource.Cancel();
+                }
+                StatusMessage = Strings.ReadyStatus;
+            }, _ => CancelTokenSource != null);
         }
 
         public void OpenDirectoryPath(string path) {

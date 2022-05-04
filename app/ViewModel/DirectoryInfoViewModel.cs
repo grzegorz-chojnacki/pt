@@ -134,8 +134,23 @@ namespace app.ViewModel {
 
         protected override void DeleteHandler() => ((DirectoryInfo)Model).Delete(true);
 
-        public void Sort(SortSettings sortSettings) {
-            StatusMessage = $"{Strings.SortStatus} {Model.Name}...";
+        public async Task Sort(SortSettings sortSettings, CancellationToken Token) {
+            var tasks = new List<Task>();
+            foreach (var item in Items) {
+                if (item is DirectoryInfoViewModel dir) {
+                    tasks.Add(Task.Factory.StartNew(async () => {
+                        Debug.WriteLine($"Sorting: {dir.Name}");
+                        StatusMessage = $"=> {Model.Name}";
+
+                        Owner.ThreadCount++;
+                        if (Owner.MaxThreadId < Thread.CurrentThread.ManagedThreadId) {
+                            Owner.MaxThreadId = Thread.CurrentThread.ManagedThreadId;
+                        }
+
+                        await dir.Sort(sortSettings, Token);
+                    }, TaskCreationOptions.PreferFairness).Unwrap());
+                }
+            }
 
             var fn = (new Dictionary<SortBy, Func<FileSystemInfoViewModel, object>> {
                 [SortBy.Name] = x => x.Name,
@@ -144,29 +159,14 @@ namespace app.ViewModel {
                 [SortBy.ModifiedDate] = x => x.LastWriteTime,
             })[sortSettings.SortBy];
 
+            StatusMessage = $"{Strings.SortStatus} {Model.Name}...";
             Items = new DispatchedObservableCollection<FileSystemInfoViewModel>(
                 ((sortSettings.SortDirection == SortDirection.Ascending)
                     ? Items.OrderBy(fn)
                     : Items.OrderByDescending(fn))
                 .OrderByDescending(item => item is DirectoryInfoViewModel));
 
-            var tasks = new List<Task>();
-            foreach (var item in Items) {
-                if (item is DirectoryInfoViewModel dir) {
-                    tasks.Append(Task.Factory.StartNew(() => {
-                        Debug.WriteLine($"Sorting: {dir.Name}");
-                        StatusMessage = $"=> {Model.Name}";
-                        Owner.ThreadCount++;
-                        if (Owner.MaxThreadId < Thread.CurrentThread.ManagedThreadId) {
-                            Owner.MaxThreadId = Thread.CurrentThread.ManagedThreadId;
-                        }
-
-                        dir.Sort(sortSettings);
-                    }, TaskCreationOptions.LongRunning | TaskCreationOptions.PreferFairness));
-                }
-            }
-
-            Task.WaitAll(tasks.ToArray());
+            await Task.WhenAll(tasks);
             NotifyPropertyChanged(nameof(Items));
         }
     }

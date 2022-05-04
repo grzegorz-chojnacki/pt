@@ -112,6 +112,11 @@
 
         <StatusBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom">
             <StatusBarItem>
+                <Button Command="{ Binding CancelSortingCommand }">
+                    <Label Content="🗙" Padding="2 0"/>
+                </Button>
+            </StatusBarItem>
+            <StatusBarItem>
                 <TextBlock Text="{ Binding StatusMessage }"/>
             </StatusBarItem>
         </StatusBar>
