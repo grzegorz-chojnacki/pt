@@ -140,7 +140,6 @@ namespace app.ViewModel {
                 if (item is DirectoryInfoViewModel dir) {
                     tasks.Add(Task.Factory.StartNew(async () => {
                         Debug.WriteLine($"Sorting: {dir.Name}");
-                        StatusMessage = $"=> {Model.Name}";
 
                         Owner.ThreadCount++;
                         if (Owner.MaxThreadId < Thread.CurrentThread.ManagedThreadId) {
@@ -148,7 +147,8 @@ namespace app.ViewModel {
                         }
 
                         await dir.Sort(sortSettings, Token);
-                    }, TaskCreationOptions.PreferFairness).Unwrap());
+                    }, TaskCreationOptions.LongRunning
+                     | TaskCreationOptions.PreferFairness).Unwrap());
                 }
             }
 

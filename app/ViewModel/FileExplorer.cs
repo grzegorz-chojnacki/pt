@@ -75,8 +75,12 @@ namespace app.ViewModel {
                     CancelTokenSource = new CancellationTokenSource();
 
                     await Task.Factory.StartNew(async x => {
-                        await Root.Sort(SortSettings, CancelTokenSource.Token);
-                    }, CancelTokenSource.Token, TaskCreationOptions.LongRunning).Unwrap();
+                            await Root.Sort(SortSettings, CancelTokenSource.Token);
+                        },
+                        CancelTokenSource.Token,
+                        TaskCreationOptions.LongRunning
+                        | TaskCreationOptions.PreferFairness
+                    ).Unwrap();
 
                     Debug.WriteLine($"MaxThreadId: {MaxThreadId}");
                     Debug.WriteLine($"ThreadCount: {ThreadCount}");
