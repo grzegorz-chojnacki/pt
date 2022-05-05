@@ -231,4 +231,7 @@
   <data name="ReadyStatus" xml:space="preserve">
     <value>Ready</value>
   </data>
+  <data name="CancelledStatus" xml:space="preserve">
+    <value>Task cancelled</value>
+  </data>
 </root>

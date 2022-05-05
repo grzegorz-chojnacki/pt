@@ -231,4 +231,7 @@
   <data name="ReadyStatus" xml:space="preserve">
     <value>Gotowe</value>
   </data>
+  <data name="CancelledStatus" xml:space="preserve">
+    <value>Zadanie anulowane</value>
+  </data>
 </root>

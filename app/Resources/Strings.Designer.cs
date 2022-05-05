@@ -115,6 +115,15 @@ namespace app.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Task cancelled.
+        /// </summary>
+        public static string CancelledStatus {
+            get {
+                return ResourceManager.GetString("CancelledStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Directory.
         /// </summary>
         public static string CreateDirectoryOption {

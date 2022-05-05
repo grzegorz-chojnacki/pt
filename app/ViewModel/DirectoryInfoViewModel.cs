@@ -135,8 +135,13 @@ namespace app.ViewModel {
         protected override void DeleteHandler() => ((DirectoryInfo)Model).Delete(true);
 
         public async Task Sort(SortSettings sortSettings, CancellationToken Token) {
+            void CheckIfCancelled() {
+                if (Token.IsCancellationRequested) Token.ThrowIfCancellationRequested();
+            }
+
             var tasks = new List<Task>();
             foreach (var item in Items) {
+                CheckIfCancelled();
                 if (item is DirectoryInfoViewModel dir) {
                     tasks.Add(Task.Factory.StartNew(async () => {
                         Debug.WriteLine($"Sorting: {dir.Name}");
@@ -166,6 +171,7 @@ namespace app.ViewModel {
                     : Items.OrderByDescending(fn))
                 .OrderByDescending(item => item is DirectoryInfoViewModel));
 
+            CheckIfCancelled();
             await Task.WhenAll(tasks);
             NotifyPropertyChanged(nameof(Items));
         }

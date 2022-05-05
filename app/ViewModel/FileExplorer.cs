@@ -1,5 +1,6 @@
 ﻿using app.Resources;
 using app.View;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -72,33 +73,36 @@ namespace app.ViewModel {
                 var dialog = new SortDialog(SortSettings);
                 if (dialog.ShowDialog() == true) {
                     MaxThreadId = ThreadCount = 0;
+
                     CancelTokenSource = new CancellationTokenSource();
+                    try {
+                        await Task.Factory.StartNew(async x => {
+                                await Root.Sort(SortSettings, CancelTokenSource.Token);
+                            },
+                            CancelTokenSource.Token,
+                            TaskCreationOptions.LongRunning
+                            | TaskCreationOptions.PreferFairness
+                        ).Unwrap();
 
-                    await Task.Factory.StartNew(async x => {
-                            await Root.Sort(SortSettings, CancelTokenSource.Token);
-                        },
-                        CancelTokenSource.Token,
-                        TaskCreationOptions.LongRunning
-                        | TaskCreationOptions.PreferFairness
-                    ).Unwrap();
+                        StatusMessage = Strings.ReadyStatus;
+                    } catch (OperationCanceledException) {
+                        Debug.WriteLine("Task cancelled");
+                        StatusMessage = Strings.CancelledStatus;
+                    } finally {
+                        Debug.WriteLine($"MaxThreadId: {MaxThreadId}");
+                        Debug.WriteLine($"ThreadCount: {ThreadCount}");
+                        Debug.WriteLine("---------------------------");
 
-                    Debug.WriteLine($"MaxThreadId: {MaxThreadId}");
-                    Debug.WriteLine($"ThreadCount: {ThreadCount}");
-                    Debug.WriteLine("---------------------------");
-
-                    CancelTokenSource.Dispose();
-                    CancelTokenSource = null;
-                    StatusMessage = Strings.ReadyStatus;
+                        CancelTokenSource.Dispose();
+                        CancelTokenSource = null;
+                    }
                 }
             }, _ => Root != null);
 
             CancelSortingCommand = new RelayCommand(_ => {
-                Debug.WriteLine(CancelTokenSource.Token.CanBeCanceled);
-                if (CancelTokenSource.Token.CanBeCanceled) {
-                    CancelTokenSource.Cancel();
-                }
-                StatusMessage = Strings.ReadyStatus;
-            }, _ => CancelTokenSource != null);
+                CancelTokenSource.Cancel();
+            }, _ => (CancelTokenSource != null)
+                 && (CancelTokenSource.Token.CanBeCanceled));
         }
 
         public void OpenDirectoryPath(string path) {
