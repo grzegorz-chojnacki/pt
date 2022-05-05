@@ -27,7 +27,17 @@ namespace app.ViewModel {
 
         private enum Status { Custom, Ready, Cancelled };
 
-        private Status StatusMessageState = Status.Custom;
+        private Status statusMessageState = Status.Custom;
+        private Status StatusMessageState {
+            get { return statusMessageState; }
+            set {
+                if (statusMessageState != value) {
+                    statusMessageState = value;
+                    NotifyPropertyChanged(nameof(StatusMessage));
+                }
+            }
+        }
+
         private string statusMessage = "";
         public string StatusMessage {
             get {
@@ -117,6 +127,7 @@ namespace app.ViewModel {
 
             CancelSortingCommand = new RelayCommand(_ => {
                 CancelTokenSource.Cancel();
+                StatusMessageState = Status.Cancelled;
             }, _ => (CancelTokenSource != null)
                  && (CancelTokenSource.Token.CanBeCanceled));
         }
