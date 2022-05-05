@@ -9,7 +9,7 @@ namespace app.ViewModel {
             set {
                 if (sortBy != value) {
                     sortBy = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(SortBy));
                 }
             }
         }
@@ -20,7 +20,7 @@ namespace app.ViewModel {
             set {
                 if (sortDirection != value) {
                     sortDirection = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(SortDirection));
                 }
             }
         }

@@ -17,19 +17,29 @@ namespace app.ViewModel {
                 if (value != null) {
                     if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != value) {
                         CultureInfo.CurrentUICulture = new CultureInfo(value);
-                        NotifyPropertyChanged();
+                        NotifyPropertyChanged(nameof(Lang));
                     }
                 }
             }
         }
 
+        private enum Status { Custom, Ready, Cancelled };
+
+        private Status StatusMessageState = Status.Custom;
         private string statusMessage = "";
         public string StatusMessage {
-            get { return statusMessage; }
+            get {
+                switch (StatusMessageState) {
+                    case Status.Ready: return Strings.ReadyStatus;
+                    case Status.Cancelled: return Strings.CancelledStatus;
+                    default: return statusMessage;
+                }
+            }
             set {
                 if (statusMessage != value) {
+                    StatusMessageState = Status.Custom;
                     statusMessage = value;
-                    NotifyPropertyChanged(nameof(statusMessage));
+                    NotifyPropertyChanged(nameof(StatusMessage));
                 }
             }
         }
@@ -53,7 +63,8 @@ namespace app.ViewModel {
             PropertyChanged += (_, e) => {
                 if (e.PropertyName == nameof(Lang)) {
                     CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
-                    StatusMessage = Strings.ReadyStatus;
+                    Debug.WriteLine(StatusMessage);
+                    NotifyPropertyChanged(nameof(StatusMessage));
                 }
             };
 
@@ -84,10 +95,10 @@ namespace app.ViewModel {
                             | TaskCreationOptions.PreferFairness
                         ).Unwrap();
 
-                        StatusMessage = Strings.ReadyStatus;
+                        StatusMessageState = Status.Ready;
                     } catch (OperationCanceledException) {
                         Debug.WriteLine("Task cancelled");
-                        StatusMessage = Strings.CancelledStatus;
+                        StatusMessageState = Status.Cancelled;
                     } finally {
                         Debug.WriteLine($"MaxThreadId: {MaxThreadId}");
                         Debug.WriteLine($"ThreadCount: {ThreadCount}");
@@ -116,7 +127,7 @@ namespace app.ViewModel {
             NotifyPropertyChanged(nameof(Root));
             NotifyPropertyChanged(nameof(Lang));
             Root.Open(path);
-            StatusMessage = Strings.ReadyStatus;
+            StatusMessageState = Status.Ready;
         }
     }
 }

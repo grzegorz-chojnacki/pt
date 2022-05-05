@@ -136,7 +136,10 @@ namespace app.ViewModel {
 
         public async Task Sort(SortSettings sortSettings, CancellationToken Token) {
             void CheckIfCancelled() {
-                if (Token.IsCancellationRequested) Token.ThrowIfCancellationRequested();
+                if (Token.IsCancellationRequested) {
+                    Debug.WriteLine("CancellationRequested");
+                    Token.ThrowIfCancellationRequested();
+                }
             }
 
             var tasks = new List<Task>();
@@ -164,6 +167,7 @@ namespace app.ViewModel {
                 [SortBy.ModifiedDate] = x => x.LastWriteTime,
             })[sortSettings.SortBy];
 
+            CheckIfCancelled();
             StatusMessage = $"{Strings.SortStatus} {Model.Name}...";
             Items = new DispatchedObservableCollection<FileSystemInfoViewModel>(
                 ((sortSettings.SortDirection == SortDirection.Ascending)
@@ -171,7 +175,6 @@ namespace app.ViewModel {
                     : Items.OrderByDescending(fn))
                 .OrderByDescending(item => item is DirectoryInfoViewModel));
 
-            CheckIfCancelled();
             await Task.WhenAll(tasks);
             NotifyPropertyChanged(nameof(Items));
         }

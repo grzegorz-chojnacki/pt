@@ -12,7 +12,7 @@ namespace app.ViewModel {
             set {
                 if (lastWriteTime != value) {
                     lastWriteTime = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(LastWriteTime));
                 }
             }
         }
@@ -23,7 +23,7 @@ namespace app.ViewModel {
             set {
                 if (isExpanded != value) {
                     isExpanded = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(IsExpanded));
                 }
             }
         }
@@ -34,7 +34,7 @@ namespace app.ViewModel {
             set {
                 if (name != value) {
                     name = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(Name));
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace app.ViewModel {
             set {
                 if (size != value) {
                     size = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(Size));
                 }
             }
         }
@@ -56,7 +56,7 @@ namespace app.ViewModel {
             set {
                 if (statusMessage != value) {
                     statusMessage = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(StatusMessage));
                 }
             }
         }
