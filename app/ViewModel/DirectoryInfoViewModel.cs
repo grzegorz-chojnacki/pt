@@ -142,6 +142,8 @@ namespace app.ViewModel {
                 }
             }
 
+            StatusMessage = $"{Strings.SortStatus} {Model.Name}...";
+
             var tasks = new List<Task>();
             foreach (var item in Items) {
                 CheckIfCancelled();
@@ -168,7 +170,6 @@ namespace app.ViewModel {
             })[sortSettings.SortBy];
 
             CheckIfCancelled();
-            StatusMessage = $"{Strings.SortStatus} {Model.Name}...";
             Items = new DispatchedObservableCollection<FileSystemInfoViewModel>(
                 ((sortSettings.SortDirection == SortDirection.Ascending)
                     ? Items.OrderBy(fn)
