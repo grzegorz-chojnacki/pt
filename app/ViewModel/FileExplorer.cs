@@ -1,4 +1,4 @@
-﻿using app.Resources;
+using app.Resources;
 using app.View;
 using System;
 using System.ComponentModel;
@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace app.ViewModel {
@@ -52,6 +53,8 @@ namespace app.ViewModel {
         public RelayCommand SortRootDirectoryCommand { get; }
         public SortSettings SortSettings = new SortSettings();
         public RelayCommand CancelSortingCommand { get; }
+        public BooleanToVisibilityConverter BooleanToVisibility = new BooleanToVisibilityConverter();
+
         private CancellationTokenSource CancelTokenSource;
 
 
@@ -63,7 +66,6 @@ namespace app.ViewModel {
             PropertyChanged += (_, e) => {
                 if (e.PropertyName == nameof(Lang)) {
                     CultureResources.ChangeCulture(CultureInfo.CurrentUICulture);
-                    Debug.WriteLine(StatusMessage);
                     NotifyPropertyChanged(nameof(StatusMessage));
                 }
             };

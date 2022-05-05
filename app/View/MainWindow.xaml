@@ -10,6 +10,7 @@
     Width="800">
     <Window.Resources>
         <local:LangBoolConverter x:Key="LangBoolConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
 
         <Style x:Key="LangButtonStyle" TargetType="ToggleButton">
             <Setter Property="Margin" Value="0,5,0,5"/>
@@ -112,7 +113,10 @@
 
         <StatusBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom">
             <StatusBarItem>
-                <Button Command="{ Binding CancelSortingCommand }">
+                <Button
+                    Command="{ Binding CancelSortingCommand }"
+                    Visibility="{ Binding RelativeSource={ RelativeSource Self },
+                        Path=IsEnabled, Converter={ StaticResource BooleanToVisibility }}">
                     <Label Content="🗙" Padding="2 0"/>
                 </Button>
             </StatusBarItem>
