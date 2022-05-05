@@ -144,6 +144,20 @@ namespace app.ViewModel {
 
             StatusMessage = $"{Strings.SortStatus} {Model.Name}...";
 
+            var fn = (new Dictionary<SortBy, Func<FileSystemInfoViewModel, object>> {
+                [SortBy.Name] = x => x.Name,
+                [SortBy.Size] = x => x.Size,
+                [SortBy.Extension] = x => x.Model.Extension,
+                [SortBy.ModifiedDate] = x => x.LastWriteTime,
+            })[sortSettings.SortBy];
+
+            CheckIfCancelled();
+            Items = new DispatchedObservableCollection<FileSystemInfoViewModel>(
+                ((sortSettings.SortDirection == SortDirection.Ascending)
+                    ? Items.OrderBy(fn)
+                    : Items.OrderByDescending(fn))
+                .OrderByDescending(item => item is DirectoryInfoViewModel));
+
             var tasks = new List<Task>();
             foreach (var item in Items) {
                 CheckIfCancelled();
@@ -161,20 +175,6 @@ namespace app.ViewModel {
                      | TaskCreationOptions.PreferFairness).Unwrap());
                 }
             }
-
-            var fn = (new Dictionary<SortBy, Func<FileSystemInfoViewModel, object>> {
-                [SortBy.Name] = x => x.Name,
-                [SortBy.Size] = x => x.Size,
-                [SortBy.Extension] = x => x.Model.Extension,
-                [SortBy.ModifiedDate] = x => x.LastWriteTime,
-            })[sortSettings.SortBy];
-
-            CheckIfCancelled();
-            Items = new DispatchedObservableCollection<FileSystemInfoViewModel>(
-                ((sortSettings.SortDirection == SortDirection.Ascending)
-                    ? Items.OrderBy(fn)
-                    : Items.OrderByDescending(fn))
-                .OrderByDescending(item => item is DirectoryInfoViewModel));
 
             await Task.WhenAll(tasks);
             NotifyPropertyChanged(nameof(Items));
