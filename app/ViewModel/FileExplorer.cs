@@ -1,4 +1,4 @@
-using app.Resources;
+﻿using app.Resources;
 using app.View;
 using System;
 using System.ComponentModel;
@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace app.ViewModel {
     public class FileExplorer : ViewModelBase {
@@ -108,6 +109,8 @@ namespace app.ViewModel {
 
                         CancelTokenSource.Dispose();
                         CancelTokenSource = null;
+                        NotifyPropertyChanged(nameof(StatusMessage));
+                        CommandManager.InvalidateRequerySuggested();
                     }
                 }
             }, _ => Root != null);
