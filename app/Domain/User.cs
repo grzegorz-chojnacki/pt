@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations;
 namespace app.Domain {
   public partial class User {
     [Key]
-    public int UserId;
+    public int Id { get; set; }
 
     [Required]
-    public int Login;
+    public int Login { get; set; }
 
     [Required]
-    public int Password;
+    public int Password { get; set; }
 
-    public bool IsLocked = false;
+    public bool IsLocked { get; set; } = false;
 
-    public bool IsAdmin = false;
+    public bool IsAdmin { get; set; } = false;
 
-    public HashSet<string> IPs = new HashSet<string>();
+    public List<string> IPs { get; set; } = new List<string>();
 
     public User() { }
   }

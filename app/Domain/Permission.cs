@@ -3,17 +3,17 @@ using System.ComponentModel.DataAnnotations;
 namespace app.Domain {
   public partial class Permission {
     [Key]
-    public int PermissionId { get; set; }
+    public int Id { get; set; }
 
     [Required]
-    public File File;
+    public File File { get; set; }
 
     [Required]
-    public User User;
+    public User User { get; set; }
 
-    public bool CanDownload = false;
-    public bool CanUpload = false;
-    public bool CanNotify = false;
+    public bool CanDownload { get; set; } = false;
+    public bool CanUpload { get; set; } = false;
+    public bool CanNotify { get; set; } = false;
 
     public Permission() { }
   }

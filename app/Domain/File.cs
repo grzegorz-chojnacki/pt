@@ -5,21 +5,21 @@ using System.ComponentModel.DataAnnotations;
 namespace app.Domain {
   public partial class File {
     [Key]
-    public int Id;
+    public int Id { get; set; }
 
     [Required]
-    public string Path;
+    public string Path { get; set; }
 
     [Required]
-    public DateTime LastModified;
+    public DateTime LastModified { get; set; }
 
     [Required]
-    public List<Metadata> Metadata = new List<Metadata>();
+    public List<Metadata> Metadata { get; set; } = new List<Metadata>();
 
     [Required]
-    public HashSet<Permission> Permission = new HashSet<Permission>();
+    public HashSet<Permission> Permission { get; set; } = new HashSet<Permission>();
 
-    public bool isRemoved = false;
+    public bool IsRemoved { get; set; } = false;
 
 
     public File() { }

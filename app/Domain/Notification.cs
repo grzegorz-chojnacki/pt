@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations;
 namespace app.Domain {
   public partial class Notification {
     [Key]
-    public int NotificationId { get; set; }
+    public int Id { get; set; }
 
     [Required]
-    public DateTime Date;
+    public DateTime Date { get; set; }
 
     [Required]
-    public File File;
+    public File File { get; set; }
 
     [Required]
-    public User User;
+    public User User { get; set; }
 
-    public Permission Permission;
-    public Metadata Metadata;
+    public Permission Permission { get; set; }
+    public Metadata Metadata { get; set; }
 
     public Notification() { }
   }
