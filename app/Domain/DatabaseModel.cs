@@ -1,12 +1,12 @@
-
+using System.Data.Entity;
 
 namespace app.Domain {
   public partial class DatabaseModel : DbContext {
-    public virtual DbSet<User> User;
-    public virtual DbSet<File> File;
-    public virtual DbSet<Metadata> Metadata;
-    public virtual DbSet<Permission> Permission;
-    public virtual DbSet<Notification> Notification;
+    public DbSet<User> User;
+    public DbSet<File> File;
+    public DbSet<Metadata> Metadata;
+    public DbSet<Permission> Permission;
+    public DbSet<Notification> Notification;
 
     public DatabaseModel() : base("name=maindb") { }
   }
