@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -56,6 +57,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\File.cs" />
+    <Compile Include="Domain\Metadata.cs" />
+    <Compile Include="Domain\Permission.cs" />
+    <Compile Include="Domain\Notification.cs" />
+    <Compile Include="Domain\DatabaseModel.cs" />
     <Compile Include="ViewModel\DispatchedObservableCollection.cs" />
     <Compile Include="Resources\CultureResources.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
